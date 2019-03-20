@@ -23,6 +23,7 @@
     "test": "node -r ts-node/register ./node_modules/protractor/bin/protractor config/config.ts",
     "headless": "node -r ts-node/register ./node_modules/protractor/bin/protractor config/config.headless.ts",
     "scenario": "node -r ts-node/register ./node_modules/protractor/bin/protractor config/config.ts --cucumberOpts.tags=\"@scenario\"",
+    "magento": "node -r ts-node/register ./node_modules/protractor/bin/protractor config/config.ts --cucumberOpts.tags=\"@magento\"",
     "webdriver-update": "webdriver-manager update",
     "webdriver-update-ci": "webdriver-manager update --versions.chrome 2.45",
     "webdriver-start": "webdriver-manager start",
