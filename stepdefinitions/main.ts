@@ -2,7 +2,7 @@ import { When, Then, Before } from "cucumber";
 import { Google } from "../pages/app/google";
 import { Actions } from "../support/actions";
 import { ImageCompare } from "../support/imageCompare";
-import { $ } from "protractor";
+import { $, browser } from "protractor";
 import { MagentoAdminLogin } from "../pages/app/magentoAdminLogin";
 import { MagentoDashboard } from "../pages/app/magentoDashboard";
 import { async } from "q";
@@ -46,5 +46,6 @@ When(/^I enter correct data$/, async function() {
 })
 
 Then(/^I should login successfully$/, async function() {
-    //Verify login
+    await browser.sleep(1000);
+    expect(await magentoDashboard.h1.getText()).contain('Dashboard');
 })

@@ -9,6 +9,6 @@ export class MagentoDashboard {
     constructor() {
         this.h1 = $('h1.page-title');
     };
-
+    
 
 }
