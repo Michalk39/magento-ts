@@ -18,6 +18,15 @@ Feature: 030 - Magento Login
         Then Group Name field text is NOT LOGGED IN
         And Group Name field is disabled
 
+    Scenario: CreateCmsPageEntity
+        Given I log in as admin with 123123q password
+        And Navigate to Content > Elements > Pages
+        And Start to create new CMS Page
+        And Fill out fields data according to data set
+        When Save CMS Page
+        Then Page should be visible in table
+        And Page url should be reachable
+
 
     # @ci @magento
     # Scenario Outline: Admin login failed
