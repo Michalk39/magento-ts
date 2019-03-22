@@ -10,7 +10,7 @@ Feature: 030 - Magento Login
         When I log in as admin with xxx password
         Then I shouldn't login successfully
 
-    @ci @magento
+    # @ci @magento
     Scenario: VerifyDisabledCustomerGroupFieldTest
         Given I log in as admin with 123123q password
         And Navigate to Customers > Customer Groups
@@ -18,6 +18,7 @@ Feature: 030 - Magento Login
         Then Group Name field text is NOT LOGGED IN
         And Group Name field is disabled
 
+    @ci @magento
     Scenario: CreateCmsPageEntity
         Given I log in as admin with 123123q password
         And Navigate to Content > Elements > Pages
