@@ -2,7 +2,7 @@ import { When, Then, Before, Given } from "cucumber";
 import { Google } from "../pages/app/google";
 import { Actions } from "../support/actions";
 import { ImageCompare } from "../support/imageCompare";
-import { $, browser } from "protractor";
+import { $, browser, $$, ElementArrayFinder } from "protractor";
 import { MagentoAdminLogin } from "../pages/app/magentoAdminLogin";
 import { MagentoDashboard } from "../pages/app/magentoDashboard";
 import { async } from "q";
@@ -92,8 +92,8 @@ Given(/^Start to create new CMS Page$/, async function() {
 })
 
 Given(/^Fill out fields data according to data set$/, async function() {
-    let pageTitle: string = "NewCmsPage";
-    await magentoContentPagesAddNewPage.fillPageTitleField(pageTitle);
+    this.pageTitle = "NewCmsPage";
+    await magentoContentPagesAddNewPage.fillPageTitleField(this.pageTitle);
 })
 
 When(/^Save CMS Page$/, async function() {
@@ -101,9 +101,16 @@ When(/^Save CMS Page$/, async function() {
 })
 
 Then(/^Page should be visible in table$/, async function() {
-    
+    // let pageTitle: string = "NewCmsPage";
+    await magentoContentPages.navigateTo();
+    await browser.sleep(5000);
+    expect(await magentoContentPages.getLastRowTitle()).equal(this.pageTitle);
 })
 
 Then(/^Page url should be reachable$/, async function() {
-    
+    // let pageTitle: string = "NewCmsPage";
+    await BrowserActions.get(await magentoContentPages.getLastRowUrl());
+    expect(await $("li.item.cms_page:nth-child(2) > strong").getText()).equal(this.pageTitle);
+
+    //parametr
 })

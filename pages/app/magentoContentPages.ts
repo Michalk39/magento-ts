@@ -8,11 +8,13 @@ import { Actions } from "../../support/actions";
 export class MagentoContentPages {
     private url: string = "index.php/admin/cms/page";
     private addNewPageButton: ElementFinder;
-    private tableRows: ElementArrayFinder;
+    private lastRowTitle: ElementFinder;
+    private lastRowUrl: ElementFinder;
 
     constructor() {
         this.addNewPageButton = $('#add');
-        this.tableRows = $$('tbody > tr');
+        this.lastRowTitle = $('tbody > tr.data-row:last-child>td:nth-child(3)>div');
+        this.lastRowUrl = $('tbody > tr.data-row:last-child>td:nth-child(4)>div');
     }
 
     async navigateTo() {
@@ -23,6 +25,13 @@ export class MagentoContentPages {
         await Actions.click(this.addNewPageButton);
     }
 
+    async getLastRowTitle() {
+        return await this.lastRowTitle.getText();
+    }
 
+    async getLastRowUrl() {
+        return await this.lastRowUrl.getText();
+    }
+    
 
 }
