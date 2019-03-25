@@ -1,4 +1,6 @@
 Scenario: CreateCmsPageEntity
 Url: https://github.com/magento/magento-functional-tests-migration/issues/631
 
-
+TODO:
+Case: CreateAdminUserRoleEntityTest
+Url: https://github.com/magento/magento-functional-tests-migration/issues/308
