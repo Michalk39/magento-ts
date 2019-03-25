@@ -11,6 +11,8 @@ import { MagentoCustomerGroups } from "../pages/app/magentoCustomerGroups";
 import { MagentoCustomerGroupsEdit } from "../pages/app/magentoCustomerGroupsEdit";
 import { MagentoContentPages } from "../pages/app/magentoContentPages";
 import { MagentoContentPagesAddNewPage } from "../pages/app/magentoContentPagesAddNewPage";
+import { MagentoUserRoles } from "../pages/app/magentoUserRoles";
+import { MagentoUserRolesNewRole } from "../pages/app/magentoUserRolesNewRole";
 
 const chai = require("chai").use(require("chai-as-promised"));
 const expect = chai.expect;
@@ -21,6 +23,8 @@ const magentoDashboard: MagentoDashboard = new MagentoDashboard();
 const magentoCustomerGroups: MagentoCustomerGroups = new MagentoCustomerGroups;
 const magentoContentPages: MagentoContentPages = new MagentoContentPages;
 const magentoContentPagesAddNewPage: MagentoContentPagesAddNewPage = new MagentoContentPagesAddNewPage;
+const magentoUserRoles: MagentoUserRoles = new MagentoUserRoles;
+const magentoUserRolesNewRole: MagentoUserRolesNewRole = new MagentoUserRolesNewRole;
 
 
 When(/^I enter "([^"]+)" phrase$/, async function (phrase: string) {
@@ -75,6 +79,10 @@ Given(/^Navigate to Content > Elements > Pages$/, async function() {
     await browser.wait(magentoContentPages.tableIsLoaded, 5000);
 })
 
+Given(/^Navigate to System > Permissions > User Roles$/, async function() {
+    await magentoUserRoles.navigateTo();
+})
+
 When(/^Select system Customer Group .*$/, async function() {
     await browser.wait(browser.ExpectedConditions.elementToBeClickable(magentoCustomerGroups.selectIdZeroRow), 100000);
     await magentoCustomerGroups.clickEdit();
@@ -110,4 +118,24 @@ Then(/^Page should be visible in table$/, async function() {
 Then(/^Page url should be reachable$/, async function() {
     await BrowserActions.get(await magentoContentPages.getLastRowUrl());
     expect(await $("li.item.cms_page:nth-child(2) > strong").getText()).equal(this.pageTitle);
+})
+
+Given(/^Press Add New Role button$/, async function() {
+    await magentoUserRoles.clickAddNewRoleButton();
+})
+
+Given(/^Fill in all data according to data set$/, async function() {
+    this.userRoleName = "Admin Role";
+    await magentoUserRolesNewRole.fillRoleNameField(this.userRoleName);
+    await magentoUserRolesNewRole.fillYourPasswordField("123123q");
+    await magentoUserRolesNewRole.clickRoleResourcesTab();
+    await magentoUserRolesNewRole.clickSalesCheckbox();
+})
+
+When(/^Click save role$/, async function() {
+    await magentoUserRolesNewRole.clickSaveRoleButton();
+})
+
+Then(/^New Role should be created$/, async function() {
+    expect(await magentoUserRoles.getLastTableRowText()).equal(this.userRoleName);
 })

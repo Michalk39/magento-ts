@@ -13,7 +13,6 @@ export class MagentoCustomerGroups {
 
     constructor () {
         // this.editButtonByCustomerGroupCode = $("//tr[.//td[count(//th[./*[.='Group']]/preceding-sibling::th) + 1][./*[.='{{code}}']]]//a[contains(@href, '/edit/')]");
-        // this.selectIdZeroRow = $("//tr[.//td[count(//th[./*[.='Group']]/preceding-sibling::th) + 1][./*[.='0']]]//a[contains(@href, '/edit/')]");
         this.selectIdZeroRow = $("tr.data-row:nth-child(1) td.data-grid-actions-cell:nth-child(4) > a.action-menu-item");
     };
     
