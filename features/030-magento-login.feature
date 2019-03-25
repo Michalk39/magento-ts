@@ -1,16 +1,16 @@
 Feature: 030 - Magento Login
     
-    # @ci @magento
+    @ci @magento
     Scenario: Admin login success
         When I log in as admin with 123123q password
         Then I should login successfully
 
-    # @ci @magento
+    @ci @magento
     Scenario: Admin login error
         When I log in as admin with xxx password
         Then I shouldn't login successfully
 
-    # @ci @magento
+    @ci @magento
     Scenario: VerifyDisabledCustomerGroupFieldTest
         Given I log in as admin with 123123q password
         And Navigate to Customers > Customer Groups
@@ -27,13 +27,3 @@ Feature: 030 - Magento Login
         When Save CMS Page
         Then Page should be visible in table
         And Page url should be reachable
-
-
-    # @ci @magento
-    # Scenario Outline: Admin login failed
-    #     When When I log in as <username> with <password> password
-    #     Then I should see error <message>
-
-    # Example:
-    #     | username | password | message |
-    #     | "wrong"  | "xxx"    | "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later." |
