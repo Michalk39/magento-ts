@@ -80,7 +80,9 @@ Given(/^Navigate to Content > Elements > Pages$/, async function() {
 })
 
 Given(/^Navigate to System > Permissions > User Roles$/, async function() {
+    this.userRoleName = "Admin Role";
     await magentoUserRoles.navigateTo();
+    await magentoUserRoles.deleteLastRoleIfExist(this.userRoleName);
 })
 
 When(/^Select system Customer Group .*$/, async function() {
@@ -125,7 +127,6 @@ Given(/^Press Add New Role button$/, async function() {
 })
 
 Given(/^Fill in all data according to data set$/, async function() {
-    this.userRoleName = "Admin Role";
     await magentoUserRolesNewRole.fillRoleNameField(this.userRoleName);
     await magentoUserRolesNewRole.fillYourPasswordField("123123q");
     await magentoUserRolesNewRole.clickRoleResourcesTab();

@@ -45,5 +45,4 @@ export class MagentoUserRolesNewRole {
         await Actions.click(this.saveRoleButton);
     }
 
-
 }

@@ -24,4 +24,13 @@ export class MagentoUserRoles {
     public async getLastTableRowText() {
         return await this.lastTableRow.getText();
     }
+
+    public async deleteLastRoleIfExist(userRoleName) {
+        let lastRole = await this.lastTableRow.getText();
+        if (lastRole == userRoleName) {
+            await Actions.click(this.lastTableRow);
+            await Actions.click($("button[title='Delete Role']"));
+            await Actions.click($("button.action-primary.action-accept"));
+        }
+    }
 }
