@@ -7,12 +7,10 @@ import { BrowserActions } from "../../support/browser";
 
 export class MagentoCustomerGroups {
     private url: string = "index.php/admin/customer/group";
-    // private editButtonByCustomerGroupCode: ElementFinder;
     public selectIdZeroRow: ElementFinder;
 
 
     constructor () {
-        // this.editButtonByCustomerGroupCode = $("//tr[.//td[count(//th[./*[.='Group']]/preceding-sibling::th) + 1][./*[.='{{code}}']]]//a[contains(@href, '/edit/')]");
         this.selectIdZeroRow = $("tr.data-row:nth-child(1) td.data-grid-actions-cell:nth-child(4) > a.action-menu-item");
     };
     
