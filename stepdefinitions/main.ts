@@ -2,7 +2,7 @@ import { When, Then, Before, Given } from "cucumber";
 import { Google } from "../pages/app/google";
 import { Actions } from "../support/actions";
 import { ImageCompare } from "../support/imageCompare";
-import { $, browser, $$, ElementArrayFinder } from "protractor";
+import { $, browser, $$, ElementArrayFinder, ExpectedConditions } from "protractor";
 import { MagentoAdminLogin } from "../pages/app/magentoAdminLogin";
 import { MagentoDashboard } from "../pages/app/magentoDashboard";
 import { async } from "q";
@@ -72,6 +72,7 @@ Given(/^Navigate to Customers > Customer Groups$/, async function() {
 
 Given(/^Navigate to Content > Elements > Pages$/, async function() {
     await magentoContentPages.navigateTo();
+    await browser.wait(magentoContentPages.tableIsLoaded, 5000);
 })
 
 When(/^Select system Customer Group .*$/, async function() {
@@ -101,16 +102,12 @@ When(/^Save CMS Page$/, async function() {
 })
 
 Then(/^Page should be visible in table$/, async function() {
-    // let pageTitle: string = "NewCmsPage";
     await magentoContentPages.navigateTo();
-    await browser.sleep(5000);
+    await browser.wait(magentoContentPages.tableIsLoaded, 5000);
     expect(await magentoContentPages.getLastRowTitle()).equal(this.pageTitle);
 })
 
 Then(/^Page url should be reachable$/, async function() {
-    // let pageTitle: string = "NewCmsPage";
     await BrowserActions.get(await magentoContentPages.getLastRowUrl());
     expect(await $("li.item.cms_page:nth-child(2) > strong").getText()).equal(this.pageTitle);
-
-    //parametr
 })
