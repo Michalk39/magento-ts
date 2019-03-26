@@ -44,5 +44,12 @@ export class MagentoUserRolesNewRole {
     public async clickSaveRoleButton() {
         await Actions.click(this.saveRoleButton);
     }
+    public async createNewRole(userRoleName: string) {
+        await this.fillRoleNameField(userRoleName);
+        await this.fillYourPasswordField("123123q");
+        await this.clickRoleResourcesTab();
+        await this.clickSalesCheckbox();
+        await this.clickSaveRoleButton();
+    }
 
 }

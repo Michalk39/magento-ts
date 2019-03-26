@@ -121,11 +121,7 @@ When(/^User add New Role in User Roles page$/, async function() {
     await magentoUserRoles.navigateTo();
     await magentoUserRoles.deleteLastRoleIfExist(this.userRoleName);
     await magentoUserRoles.clickAddNewRoleButton();
-    await magentoUserRolesNewRole.fillRoleNameField(this.userRoleName);
-    await magentoUserRolesNewRole.fillYourPasswordField("123123q");
-    await magentoUserRolesNewRole.clickRoleResourcesTab();
-    await magentoUserRolesNewRole.clickSalesCheckbox();
-    await magentoUserRolesNewRole.clickSaveRoleButton();
+    await magentoUserRolesNewRole.createNewRole(this.userRoleName);
 })
 
 Then(/^New Role should be created$/, async function() {
