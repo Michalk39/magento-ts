@@ -11,6 +11,8 @@ import { MagentoCustomerGroups } from "../pages/app/magentoCustomerGroups";
 import { MagentoCustomerGroupsEdit } from "../pages/app/magentoCustomerGroupsEdit";
 import { MagentoContentPages } from "../pages/app/magentoContentPages";
 import { MagentoContentPagesAddNewPage } from "../pages/app/magentoContentPagesAddNewPage";
+import { MagentoUserRoles } from "../pages/app/magentoUserRoles";
+import { MagentoUserRolesNewRole } from "../pages/app/magentoUserRolesNewRole";
 
 const chai = require("chai").use(require("chai-as-promised"));
 const expect = chai.expect;
@@ -21,6 +23,8 @@ const magentoDashboard: MagentoDashboard = new MagentoDashboard();
 const magentoCustomerGroups: MagentoCustomerGroups = new MagentoCustomerGroups;
 const magentoContentPages: MagentoContentPages = new MagentoContentPages;
 const magentoContentPagesAddNewPage: MagentoContentPagesAddNewPage = new MagentoContentPagesAddNewPage;
+const magentoUserRoles: MagentoUserRoles = new MagentoUserRoles;
+const magentoUserRolesNewRole: MagentoUserRolesNewRole = new MagentoUserRolesNewRole;
 
 
 When(/^I enter "([^"]+)" phrase$/, async function (phrase: string) {
@@ -110,4 +114,16 @@ Then(/^Page should be visible in table$/, async function() {
 Then(/^Page url should be reachable$/, async function() {
     await BrowserActions.get(await magentoContentPages.getLastRowUrl());
     expect(await $("li.item.cms_page:nth-child(2) > strong").getText()).equal(this.pageTitle);
+})
+
+When(/^User add New Role in User Roles page$/, async function() {
+    this.userRoleName = "Admin Role";
+    await magentoUserRoles.navigateTo();
+    await magentoUserRoles.deleteLastRoleIfExist(this.userRoleName);
+    await magentoUserRoles.clickAddNewRoleButton();
+    await magentoUserRolesNewRole.createNewRole(this.userRoleName);
+})
+
+Then(/^New Role should be created$/, async function() {
+    expect(await magentoUserRoles.getLastTableRowText()).equal(this.userRoleName);
 })
