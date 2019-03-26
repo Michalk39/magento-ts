@@ -132,10 +132,7 @@ Then(/^New Role should be created$/, async function() {
 
 When(/^Admin save selected settings$/, async function() {
     await magentoStoresConfigurationGeneralWeb.navigateTo();
-    await magentoStoresConfigurationGeneralWeb.expandBaseUrlsSecureSection();
-    await magentoStoresConfigurationGeneralWeb.uncheckUseSecureUrlsOnStorefrontCheckbox();
-    await magentoStoresConfigurationGeneralWeb.selectUseSecureUrlsOnStorefrontSelectValue("Yes");
-    await magentoStoresConfigurationGeneralWeb.clickSaveConfigButton();
+    await magentoStoresConfigurationGeneralWeb.configureHttpsData();
 }) 
 
 Then(/^Configuration should be saved$/, async function() {
