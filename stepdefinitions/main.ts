@@ -79,12 +79,6 @@ Given(/^Navigate to Content > Elements > Pages$/, async function() {
     await browser.wait(magentoContentPages.tableIsLoaded, 5000);
 })
 
-Given(/^Navigate to System > Permissions > User Roles$/, async function() {
-    this.userRoleName = "Admin Role";
-    await magentoUserRoles.navigateTo();
-    await magentoUserRoles.deleteLastRoleIfExist(this.userRoleName);
-})
-
 When(/^Select system Customer Group .*$/, async function() {
     await browser.wait(browser.ExpectedConditions.elementToBeClickable(magentoCustomerGroups.selectIdZeroRow), 100000);
     await magentoCustomerGroups.clickEdit();
@@ -122,18 +116,15 @@ Then(/^Page url should be reachable$/, async function() {
     expect(await $("li.item.cms_page:nth-child(2) > strong").getText()).equal(this.pageTitle);
 })
 
-Given(/^Press Add New Role button$/, async function() {
+When(/^User add New Role in User Roles page$/, async function() {
+    this.userRoleName = "Admin Role";
+    await magentoUserRoles.navigateTo();
+    await magentoUserRoles.deleteLastRoleIfExist(this.userRoleName);
     await magentoUserRoles.clickAddNewRoleButton();
-})
-
-Given(/^Fill in all data according to data set$/, async function() {
     await magentoUserRolesNewRole.fillRoleNameField(this.userRoleName);
     await magentoUserRolesNewRole.fillYourPasswordField("123123q");
     await magentoUserRolesNewRole.clickRoleResourcesTab();
     await magentoUserRolesNewRole.clickSalesCheckbox();
-})
-
-When(/^Click save role$/, async function() {
     await magentoUserRolesNewRole.clickSaveRoleButton();
 })
 
