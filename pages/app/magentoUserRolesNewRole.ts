@@ -1,6 +1,7 @@
 import { BrowserActions } from "../../support/browser";
 import { ElementFinder, $ } from "protractor";
 import { Actions } from "../../support/actions";
+import { testConfig } from "../../config/test-config";
 
 export class MagentoUserRolesNewRole {
     private url: string = "index.php/admin/admin/user_role/editrole";
@@ -46,7 +47,7 @@ export class MagentoUserRolesNewRole {
     }
     public async createNewRole(userRoleName: string) {
         await this.fillRoleNameField(userRoleName);
-        await this.fillYourPasswordField("123123q");
+        await this.fillYourPasswordField(testConfig.adminPassword);
         await this.clickRoleResourcesTab();
         await this.clickSalesCheckbox();
         await this.clickSaveRoleButton();
