@@ -48,10 +48,6 @@ export class MagentoStoresConfigurationGeneralWeb {
     }
 
     public async isSaveConfigSuccesMessageVisible() {
-        if(await this.saveConfigSuccesMessage.isPresent()) {
-            return true;
-        } else {
-            return false;
-        }
+            return await this.saveConfigSuccesMessage.isPresent();
     }
 }
