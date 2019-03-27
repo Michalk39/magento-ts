@@ -14,6 +14,7 @@ import { MagentoContentPagesAddNewPage } from "../pages/app/magentoContentPagesA
 import { MagentoUserRoles } from "../pages/app/magentoUserRoles";
 import { MagentoUserRolesNewRole } from "../pages/app/magentoUserRolesNewRole";
 import { MagentoStoresConfigurationGeneralWeb } from "../pages/app/magentoStoresConfigurationGeneralWeb";
+import { MagentoHomePage } from "../pages/app/magentoHomePage";
 
 const chai = require("chai").use(require("chai-as-promised"));
 const expect = chai.expect;
@@ -27,6 +28,7 @@ const magentoContentPagesAddNewPage: MagentoContentPagesAddNewPage = new Magento
 const magentoUserRoles: MagentoUserRoles = new MagentoUserRoles;
 const magentoUserRolesNewRole: MagentoUserRolesNewRole = new MagentoUserRolesNewRole;
 const magentoStoresConfigurationGeneralWeb: MagentoStoresConfigurationGeneralWeb = new MagentoStoresConfigurationGeneralWeb;
+const magentoHomePage: MagentoHomePage = new MagentoHomePage;
 
 
 When(/^I enter "([^"]+)" phrase$/, async function (phrase: string) {
@@ -138,3 +140,29 @@ When(/^Admin save selected settings$/, async function() {
 Then(/^Configuration should be saved$/, async function() {
     expect(await magentoStoresConfigurationGeneralWeb.isSaveConfigSuccesMessageVisible()).equal(true);
 })
+
+Given(/^Shopping cart isn't empty$/, async function() {
+    await magentoHomePage.addProductToCart();
+})
+
+
+
+
+
+// abstract class Page {
+//     protected searchField;
+    
+//     constructor(parameters) {
+//         this.searchField = "selektor";
+//     }
+
+//     protected fillSearch(cos: string) {
+//         Actions.sendKeys(this.searchField, cos);
+//     }
+// }
+
+
+// class CartPage extends Page {
+
+
+// }
