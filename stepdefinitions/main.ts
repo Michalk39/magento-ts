@@ -147,12 +147,9 @@ Given(/^Shopping cart isn't empty$/, async function() {
     await magentoHomePage.addProductToCart();
 })
 
-Given(/^Enter incorrect email$/, async function() {
+When(/^Enter incorrect email$/, async function() {
     await magentoCheckout.navigateTo();
     await magentoCheckout.fillEmailAdressField("wrongMail");
-})
-
-When(/^Try go to next step$/, async function() {
     await magentoCheckout.clickNextButton();
 })
 
