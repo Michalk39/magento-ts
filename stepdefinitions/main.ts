@@ -156,24 +156,3 @@ When(/^Enter incorrect email$/, async function() {
 Then(/^Invalid email error message should be visible$/, async function() {
     expect(await magentoCheckout.isEmailErrorVisible()).equal(true);
 })
-
-
-
-
-// abstract class Page {
-//     protected searchField;
-    
-//     constructor(parameters) {
-//         this.searchField = "selektor";
-//     }
-
-//     protected fillSearch(cos: string) {
-//         Actions.sendKeys(this.searchField, cos);
-//     }
-// }
-
-
-// class CartPage extends Page {
-
-
-// }
