@@ -47,6 +47,7 @@ export class MagentoHomePage {
         await this.navigateTo();
         await this.searchPhrase(productName);
         await Actions.click(await element(by.cssContainingText('.product-item-link', productName)));
+        await this.clickAddToCartButton();
     }
 
 }

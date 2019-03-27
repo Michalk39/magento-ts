@@ -15,6 +15,7 @@ import { MagentoUserRoles } from "../pages/app/magentoUserRoles";
 import { MagentoUserRolesNewRole } from "../pages/app/magentoUserRolesNewRole";
 import { MagentoStoresConfigurationGeneralWeb } from "../pages/app/magentoStoresConfigurationGeneralWeb";
 import { MagentoHomePage } from "../pages/app/magentoHomePage";
+import { MagentoCheckout } from "../pages/app/magentoCheckout";
 
 const chai = require("chai").use(require("chai-as-promised"));
 const expect = chai.expect;
@@ -29,6 +30,7 @@ const magentoUserRoles: MagentoUserRoles = new MagentoUserRoles;
 const magentoUserRolesNewRole: MagentoUserRolesNewRole = new MagentoUserRolesNewRole;
 const magentoStoresConfigurationGeneralWeb: MagentoStoresConfigurationGeneralWeb = new MagentoStoresConfigurationGeneralWeb;
 const magentoHomePage: MagentoHomePage = new MagentoHomePage;
+const magentoCheckout: MagentoCheckout = new MagentoCheckout;
 
 
 When(/^I enter "([^"]+)" phrase$/, async function (phrase: string) {
@@ -145,6 +147,18 @@ Given(/^Shopping cart isn't empty$/, async function() {
     await magentoHomePage.addProductToCart();
 })
 
+Given(/^Enter incorrect email$/, async function() {
+    await magentoCheckout.navigateTo();
+    await magentoCheckout.fillEmailAdressField("wrongMail");
+})
+
+When(/^Try go to next step$/, async function() {
+    await magentoCheckout.clickNextButton();
+})
+
+Then(/^Invalid email error message should be visible$/, async function() {
+    expect(await magentoCheckout.isEmailErrorVisible()).equal(true);
+})
 
 
 
