@@ -4,3 +4,9 @@ Url: https://github.com/magento/magento-functional-tests-migration/issues/631
 TODO:
 Case: CreateAdminUserRoleEntityTest
 Url: https://github.com/magento/magento-functional-tests-migration/issues/308
+Usuwanie jeśli istnieje
+
+Case: HttpsHeadersDisableTest
+Url: https://github.com/magento/magento-functional-tests-migration/blob/2.3-develop/dev/tests/functional/tests/app/Magento/Backend/Test/TestCase/HttpsHeadersDisableTest.php
+Obsługa selectów
+

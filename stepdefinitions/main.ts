@@ -13,6 +13,7 @@ import { MagentoContentPages } from "../pages/app/magentoContentPages";
 import { MagentoContentPagesAddNewPage } from "../pages/app/magentoContentPagesAddNewPage";
 import { MagentoUserRoles } from "../pages/app/magentoUserRoles";
 import { MagentoUserRolesNewRole } from "../pages/app/magentoUserRolesNewRole";
+import { MagentoStoresConfigurationGeneralWeb } from "../pages/app/magentoStoresConfigurationGeneralWeb";
 
 const chai = require("chai").use(require("chai-as-promised"));
 const expect = chai.expect;
@@ -25,6 +26,7 @@ const magentoContentPages: MagentoContentPages = new MagentoContentPages;
 const magentoContentPagesAddNewPage: MagentoContentPagesAddNewPage = new MagentoContentPagesAddNewPage;
 const magentoUserRoles: MagentoUserRoles = new MagentoUserRoles;
 const magentoUserRolesNewRole: MagentoUserRolesNewRole = new MagentoUserRolesNewRole;
+const magentoStoresConfigurationGeneralWeb: MagentoStoresConfigurationGeneralWeb = new MagentoStoresConfigurationGeneralWeb;
 
 
 When(/^I enter "([^"]+)" phrase$/, async function (phrase: string) {
@@ -126,4 +128,13 @@ When(/^User add New Role in User Roles page$/, async function() {
 
 Then(/^New Role should be created$/, async function() {
     expect(await magentoUserRoles.getLastTableRowText()).equal(this.userRoleName);
+})
+
+When(/^Admin save selected settings$/, async function() {
+    await magentoStoresConfigurationGeneralWeb.navigateTo();
+    await magentoStoresConfigurationGeneralWeb.configureHttpsData();
+}) 
+
+Then(/^Configuration should be saved$/, async function() {
+    expect(await magentoStoresConfigurationGeneralWeb.isSaveConfigSuccesMessageVisible()).equal(true);
 })
