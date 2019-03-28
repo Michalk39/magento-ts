@@ -3,7 +3,7 @@ Feature: New Customer Register
    Feature Description
 
     @ci @magento
-   Scenario: New Customer Password Complexity Test
+   Scenario Outline: New Customer Password Complexity Test
         Given I am on register page
         When I enter password <password>
         Then The message should be <message>

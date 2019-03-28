@@ -16,6 +16,7 @@ import { MagentoUserRolesNewRole } from "../pages/app/magentoUserRolesNewRole";
 import { MagentoStoresConfigurationGeneralWeb } from "../pages/app/magentoStoresConfigurationGeneralWeb";
 import { MagentoHomePage } from "../pages/app/magentoHomePage";
 import { MagentoCheckout } from "../pages/app/magentoCheckout";
+import { MagnetoRegisterPage } from "../pages/app/magentoRegisterPage";
 
 const chai = require("chai").use(require("chai-as-promised"));
 const expect = chai.expect;
@@ -31,6 +32,7 @@ const magentoUserRolesNewRole: MagentoUserRolesNewRole = new MagentoUserRolesNew
 const magentoStoresConfigurationGeneralWeb: MagentoStoresConfigurationGeneralWeb = new MagentoStoresConfigurationGeneralWeb;
 const magentoHomePage: MagentoHomePage = new MagentoHomePage;
 const magentoCheckout: MagentoCheckout = new MagentoCheckout;
+const magentoRegisterPage: MagnetoRegisterPage = new MagnetoRegisterPage;
 
 
 When(/^I enter "([^"]+)" phrase$/, async function (phrase: string) {
@@ -155,4 +157,8 @@ When(/^Enter incorrect email$/, async function() {
 
 Then(/^Invalid email error message should be visible$/, async function() {
     expect(await magentoCheckout.isEmailErrorVisible()).equal(true);
+})
+
+Given(/^I am on register page$/, async function() {
+    await magentoRegisterPage.navigateTo();
 })
