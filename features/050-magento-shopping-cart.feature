@@ -4,6 +4,6 @@ Feature: Shopping Cart
 
     @ci @magento
    Scenario: Validate Email On Checkout
-        Given Shopping cart isn't empty
-        When Enter incorrect email
-        Then Invalid email error message should be visible
+        Given User have non-empty shopping cart
+        When He provides an incorrect email address in e-mail field
+        Then He should see error message with invalid message information

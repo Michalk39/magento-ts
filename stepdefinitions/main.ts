@@ -143,16 +143,16 @@ Then(/^Configuration should be saved$/, async function() {
     expect(await magentoStoresConfigurationGeneralWeb.isSaveConfigSuccesMessageVisible()).equal(true);
 })
 
-Given(/^Shopping cart isn't empty$/, async function() {
+Given(/^User have non-empty shopping cart$/, async function() {
     await magentoHomePage.addProductToCart();
 })
 
-When(/^Enter incorrect email$/, async function() {
+When(/^He provides an incorrect email address in e-mail field$/, async function() {
     await magentoCheckout.navigateTo();
     await magentoCheckout.fillEmailAdressField("wrongMail");
     await magentoCheckout.clickNextButton();
 })
 
-Then(/^Invalid email error message should be visible$/, async function() {
+Then(/^He should see error message with invalid message information$/, async function() {
     expect(await magentoCheckout.isEmailErrorVisible()).equal(true);
 })
