@@ -2,6 +2,8 @@ import { browser, ExpectedConditions, ElementFinder, until } from 'protractor';
 
 class CustomWait {
 
+    static until = browser.ExpectedConditions;
+
     public static timeouts = {
         "tiny": 1000,
         "short": 3000,
@@ -10,7 +12,7 @@ class CustomWait {
     }
 
     public static async waitForTextInElement(element, text: string, ms: number) {
-        await browser.wait(browser.ExpectedConditions.textToBePresentInElement(element, text), ms);
+        await browser.wait(this.until.textToBePresentInElement(element, text), ms);
     };
 
     public static async waitForNewHandlerToLoad(ms: number) {
@@ -25,7 +27,7 @@ class CustomWait {
     };
 
     public static async waitForInvisibility(element, ms: number) {
-        await browser.wait(browser.ExpectedConditions.invisibilityOf(element), ms);
+        await browser.wait(this.until.invisibilityOf(element), ms);
     };
 
     public static async waitForAttributeToContain(item: ElementFinder, attribute: string) {
@@ -35,7 +37,7 @@ class CustomWait {
     };
 
     public static async waitForElementToBeClickable(element, timeout = this.timeouts.short) {
-        await browser.wait(ExpectedConditions.elementToBeClickable(element), timeout);
+        await browser.wait(this.until.elementToBeClickable(element), timeout);
     }
 }
 
