@@ -12,7 +12,6 @@ export class MagnetoRegisterPage {
     private createAccountButton: ElementFinder;
     private passwordErrorMessage: ElementFinder;
 
-
     constructor() {
         this.firstNameField = $("#firstname");
         this.lastNameField = $("#lastname");
@@ -56,8 +55,5 @@ export class MagnetoRegisterPage {
             return "";
         }
     }
-
-    
-
 
 }
