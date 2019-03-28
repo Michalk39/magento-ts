@@ -10,3 +10,5 @@ Case: HttpsHeadersDisableTest
 Url: https://github.com/magento/magento-functional-tests-migration/blob/2.3-develop/dev/tests/functional/tests/app/Magento/Backend/Test/TestCase/HttpsHeadersDisableTest.php
 Obsługa selectów
 
+Case: ValidateEmailOnCheckoutTest
+Url: https://github.com/magento/magento-functional-tests-migration/issues/638
