@@ -1,9 +1,6 @@
-import { browser, ExpectedConditions, ElementFinder } from 'protractor';
-import { protractor } from 'protractor/built/ptor';
+import { browser, ExpectedConditions, ElementFinder, until } from 'protractor';
 
 class CustomWait {
-
-    private static EC = protractor.ExpectedConditions;
 
     public static timeouts = {
         "tiny": 1000,
@@ -34,11 +31,11 @@ class CustomWait {
     public static async waitForAttributeToContain(item: ElementFinder, attribute: string) {
        return await browser.wait(async function() {
             return await item.getAttribute(attribute);
-        }, 5000);
+        }, this.timeouts.medium);
     };
 
     public static async waitForElementToBeClickable(element, timeout = this.timeouts.short) {
-        await browser.wait(this.EC.elementToBeClickable(element), timeout);
+        await browser.wait(ExpectedConditions.elementToBeClickable(element), timeout);
     }
 }
 
