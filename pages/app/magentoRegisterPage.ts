@@ -10,6 +10,7 @@ export class MagnetoRegisterPage {
     private passwordField: ElementFinder;
     private confirmPasswordField: ElementFinder;
     private createAccountButton: ElementFinder;
+    private passwordErrorMessage: ElementFinder;
 
 
     constructor() {
@@ -19,6 +20,7 @@ export class MagnetoRegisterPage {
         this.passwordField = $("#password");
         this.confirmPasswordField = $("#password-confirmation");
         this.createAccountButton = $("button[title='Create an Account']");
+        this.passwordErrorMessage = $("#password-error");
     }
 
     public async navigateTo() {
@@ -26,10 +28,34 @@ export class MagnetoRegisterPage {
     }
 
     public async fillFirstName(name: string) {await Actions.sendKeys(this.firstNameField, name);}
-    public async fillLastName(name: string) {await Actions.sendKeys(this.lastNameField, lastName);}
-    public async fillEmail(name: string) {await Actions.sendKeys(this.emailFielld, email);}
-    public async fillPassword(name: string) {await Actions.sendKeys(this.passwordField, password);}
-    public async fillConfirmPassword(name: string) {await Actions.sendKeys(this.confirmPasswordField, confirmPassword);}
+    public async fillLastName(lastName: string) {await Actions.sendKeys(this.lastNameField, lastName);}
+    public async fillEmail(email: string) {await Actions.sendKeys(this.emailFielld, email);}
+    public async fillPassword(password: string) {await Actions.sendKeys(this.passwordField, password);}
+    public async fillConfirmPassword(confirmPassword: string) {await Actions.sendKeys(this.confirmPasswordField, confirmPassword);}
+
+    public async fillRegisterForm(name: string, lastName: string, email: string, password:string, confirmPassword:string) {
+        await this.fillFirstName(name);
+        await this.fillLastName(lastName);
+        await this.fillEmail(email);
+        await this.fillPassword(password);
+        await this.fillConfirmPassword(confirmPassword);
+    }
+
+    public async clickCreateAccountButton() {
+        await Actions.click(this.createAccountButton);
+    }
+
+    public async isPasswordErrorVisible() {
+        return await this.passwordErrorMessage.isDisplayed();
+    }
+
+    public async getPasswordErrorText() {
+        if(this.isPasswordErrorVisible()) {
+            return await this.passwordErrorMessage.getText();
+        } else {
+            return "";
+        }
+    }
 
     
 

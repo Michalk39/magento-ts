@@ -17,6 +17,7 @@ import { MagentoStoresConfigurationGeneralWeb } from "../pages/app/magentoStores
 import { MagentoHomePage } from "../pages/app/magentoHomePage";
 import { MagentoCheckout } from "../pages/app/magentoCheckout";
 import { MagnetoRegisterPage } from "../pages/app/magentoRegisterPage";
+import { CustomWait } from "../support/wait";
 
 const chai = require("chai").use(require("chai-as-promised"));
 const expect = chai.expect;
@@ -161,4 +162,12 @@ Then(/^Invalid email error message should be visible$/, async function() {
 
 Given(/^I am on register page$/, async function() {
     await magentoRegisterPage.navigateTo();
+})
+
+When(/^I enter password (.*)$/, async function(password: string) {
+    await magentoRegisterPage.fillRegisterForm("John", "Doe", "John@example.com", password, password);
+})
+
+Then(/^The message should be (.*)$/, async function(message: string) {
+    expect(await magentoRegisterPage.getPasswordErrorText()).equal(message);
 })
