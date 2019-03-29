@@ -16,6 +16,8 @@ import { MagentoUserRolesNewRole } from "../pages/app/magentoUserRolesNewRole";
 import { MagentoStoresConfigurationGeneralWeb } from "../pages/app/magentoStoresConfigurationGeneralWeb";
 import { MagentoHomePage } from "../pages/app/magentoHomePage";
 import { MagentoCheckout } from "../pages/app/magentoCheckout";
+import { MagnetoRegisterPage } from "../pages/app/magentoRegisterPage";
+import { CustomWait } from "../support/wait";
 
 const chai = require("chai").use(require("chai-as-promised"));
 const expect = chai.expect;
@@ -31,6 +33,7 @@ const magentoUserRolesNewRole: MagentoUserRolesNewRole = new MagentoUserRolesNew
 const magentoStoresConfigurationGeneralWeb: MagentoStoresConfigurationGeneralWeb = new MagentoStoresConfigurationGeneralWeb;
 const magentoHomePage: MagentoHomePage = new MagentoHomePage;
 const magentoCheckout: MagentoCheckout = new MagentoCheckout;
+const magentoRegisterPage: MagnetoRegisterPage = new MagnetoRegisterPage;
 
 
 When(/^I enter "([^"]+)" phrase$/, async function (phrase: string) {
@@ -155,4 +158,16 @@ When(/^He provides an incorrect email address in e-mail field$/, async function(
 
 Then(/^He should see error message with invalid message information$/, async function() {
     expect(await magentoCheckout.isEmailErrorVisible()).equal(true);
+})
+
+Given(/^I am on register page$/, async function() {
+    await magentoRegisterPage.navigateTo();
+})
+
+When(/^I enter password (.*)$/, async function(password: string) {
+    await magentoRegisterPage.fillRegisterForm("John", "Doe", "John@example.com", password, password);
+})
+
+Then(/^The message should be (.*)$/, async function(message: string) {
+    expect(await magentoRegisterPage.getPasswordErrorText()).equal(message);
 })
