@@ -2,7 +2,7 @@ Feature: Shopping Cart
 
    Feature Description
 
-    @ci @magento
+   #  @ci @magento
    Scenario: Validate Email On Checkout
         Given Shopping cart isn't empty
         When Enter incorrect email

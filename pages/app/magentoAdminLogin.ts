@@ -1,4 +1,4 @@
-import {$, $$, ElementFinder, ElementArrayFinder } from "protractor";
+import { $, $$, ElementFinder, ElementArrayFinder } from "protractor";
 import { Actions } from "../../support/actions";
 import { BrowserActions } from "../../support/browser";
 import { logger } from '../../support/logger'
@@ -21,7 +21,7 @@ export class MagentoAdminLogin {
         BrowserActions.get(this.url)
     };
 
-    async logIn (username: string, password: string) {
+    async logIn(username: string, password: string) {
         await Actions.sendKeys(this.usernameInput, username);
         await Actions.sendKeys(this.passwordInput, password);
         await Actions.click(this.signInButton);
@@ -29,7 +29,7 @@ export class MagentoAdminLogin {
 
     async getErrorMessage() {
         let text = await this.messageError.getText();
-        logger.debug("Text: " +  text);
+        logger.debug("Text: " + text);
         return text;
     }
 

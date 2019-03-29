@@ -16,3 +16,6 @@ Url: https://github.com/magento/magento-functional-tests-migration/issues/638
 Case: NewCustomerPasswordComplexityTest
 Url: https://github.com/magento/magento-functional-tests-migration/issues/375
 Outline 
+
+Case: CmsPageMassActionTest
+Url: https://github.com/magento/magento-functional-tests-migration/issues/623

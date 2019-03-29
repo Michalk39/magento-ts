@@ -18,6 +18,7 @@ import { MagentoHomePage } from "../pages/app/magentoHomePage";
 import { MagentoCheckout } from "../pages/app/magentoCheckout";
 import { MagnetoRegisterPage } from "../pages/app/magentoRegisterPage";
 import { CustomWait } from "../support/wait";
+import { testConfig } from "../config/test-config";
 
 const chai = require("chai").use(require("chai-as-promised"));
 const expect = chai.expect;
@@ -170,4 +171,18 @@ When(/^I enter password (.*)$/, async function(password: string) {
 
 Then(/^The message should be (.*)$/, async function(message: string) {
     expect(await magentoRegisterPage.getPasswordErrorText()).equal(message);
+})
+
+Given(/^Admin creates ([0-9]+) new cms pages$/, async function(numberOfPages: number) {
+    await magentoLoginPage.navigateTo();
+    await magentoLoginPage.logIn(testConfig.adminLogin, testConfig.adminPassword);
+    await magentoContentPages.createMultipleTestPages(numberOfPages);
+})
+
+When(/^Admin perform mass disable action on the newly created pages$/, async function() {
+    //cos
+})
+
+Then(/^New pagees should have disabled status$/, async function() {
+    //cos
 })
