@@ -6,8 +6,6 @@ import { MagentoContentPagesAddNewPage } from "./magentoContentPagesAddNewPage";
 import { CustomWait } from "../../support/wait";
 
 
-
-
 export class MagentoContentPages {
     private url: string = "index.php/admin/cms/page";
     private addNewPageButton: ElementFinder;
@@ -15,14 +13,15 @@ export class MagentoContentPages {
     private lastRowUrl: ElementFinder;
     private EC = protractor.ExpectedConditions;
     private magentoContentPagesAddNewPage: MagentoContentPagesAddNewPage = new MagentoContentPagesAddNewPage;
-    public tableIsLoaded; //to jest do wyrzucenia/zmienienia
+    
+    // private rowCheckbox;    
     //private tableOfPages;
 
     constructor() {
         this.addNewPageButton = $('#add');
         this.lastRowTitle = $('tbody > tr.data-row:last-child>td:nth-child(3)>div');
         this.lastRowUrl = $('tbody > tr.data-row:last-child>td:nth-child(4)>div');
-        this.tableIsLoaded = this.EC.elementToBeClickable(this.lastRowTitle);
+        
         //this.tableOfPages = this.buildTable();
     }
 
@@ -39,10 +38,12 @@ export class MagentoContentPages {
     }
 
     async getLastRowTitle() {
+        await CustomWait.waitForElementToBeClickable(this.lastRowTitle);        
         return await this.lastRowTitle.getText();
     }
 
     async getLastRowUrl() {
+        await CustomWait.waitForElementToBeClickable(this.lastRowUrl);        
         return await this.lastRowUrl.getText();
     }
 
@@ -57,6 +58,19 @@ export class MagentoContentPages {
     async createMultipleTestPages(number: number) {
         for(let i = 0; i < number; i++) {
             await this.createNewTestPage("TestCMSPage" + String(i + 1));
+        }
+    }
+
+    async clickRowCheckboxReversed(number: number) {
+        await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
+        let checkBox = $("table[data-role='grid'] > tbody > tr:nth-last-child(" + number + ") > td:first-child")
+        await Actions.click(checkBox);
+    }
+
+    async selectMultipleRowsReversed(quantity: number) {
+        this.navigateTo();
+        for(let i = 1; i <= quantity; i++) {
+            this.clickRowCheckboxReversed(i);
         }
     }
 

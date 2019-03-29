@@ -72,7 +72,7 @@ Then(/^I should login successfully$/, async function() {
 })
 
 Then(/^I shouldn't login successfully$/, async function() {
-    expect(await magentoLoginPage.isErrorMessageVisible()).equal(true); //tu error
+    expect(await magentoLoginPage.isErrorMessageVisible()).equal(true);
 })
 
 When(/^I enter incorrect data$/, async function() {
@@ -86,7 +86,6 @@ Given(/^Navigate to Customers > Customer Groups$/, async function() {
 
 Given(/^Navigate to Content > Elements > Pages$/, async function() {
     await magentoContentPages.navigateTo();
-    await browser.wait(magentoContentPages.tableIsLoaded, 5000);
 })
 
 When(/^Select system Customer Group .*$/, async function() {
@@ -117,7 +116,6 @@ When(/^Save CMS Page$/, async function() {
 
 Then(/^Page should be visible in table$/, async function() {
     await magentoContentPages.navigateTo();
-    await browser.wait(magentoContentPages.tableIsLoaded, 5000);
     expect(await magentoContentPages.getLastRowTitle()).equal(this.pageTitle);
 })
 
@@ -174,13 +172,15 @@ Then(/^The message should be (.*)$/, async function(message: string) {
 })
 
 Given(/^Admin creates ([0-9]+) new cms pages$/, async function(numberOfPages: number) {
+    this.numberOfPages = numberOfPages;
     await magentoLoginPage.navigateTo();
     await magentoLoginPage.logIn(testConfig.adminLogin, testConfig.adminPassword);
-    await magentoContentPages.createMultipleTestPages(numberOfPages);
+    await magentoContentPages.createMultipleTestPages(this.numberOfPages);
 })
 
 When(/^Admin perform mass disable action on the newly created pages$/, async function() {
-    //cos
+    await magentoContentPages.selectMultipleRowsReversed(this.numberOfPages);
+    await browser.sleep(5000);
 })
 
 Then(/^New pagees should have disabled status$/, async function() {
