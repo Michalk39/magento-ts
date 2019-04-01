@@ -2,7 +2,7 @@ import { When, Then, Before, Given } from "cucumber";
 import { Google } from "../pages/app/google";
 import { Actions } from "../support/actions";
 import { ImageCompare } from "../support/imageCompare";
-import { $, browser, $$, ElementArrayFinder, ExpectedConditions } from "protractor";
+import { $, browser, $$, ElementArrayFinder, ExpectedConditions, element } from "protractor";
 import { MagentoAdminLogin } from "../pages/app/magentoAdminLogin";
 import { MagentoDashboard } from "../pages/app/magentoDashboard";
 import { async } from "q";
@@ -184,5 +184,12 @@ When(/^Admin perform mass disable action on the newly created pages$/, async fun
 })
 
 Then(/^New pagees should have disabled status$/, async function() {
-    let result = await magentoContentPages.getMultipleRowsStatusReversed(2);
+    let results = await magentoContentPages.getMultipleRowsStatusReversed(this.numberOfPages);
+        
+    let expected = results.filter(function(result) {
+        return result === "Disabled";
+    })
+
+    expect(results).to.have.length(expected.length);
+
 })
