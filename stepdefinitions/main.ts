@@ -181,9 +181,8 @@ Given(/^Admin creates ([0-9]+) new cms pages$/, async function(numberOfPages: nu
 When(/^Admin perform mass disable action on the newly created pages$/, async function() {
     await magentoContentPages.selectMultipleRowsReversed(this.numberOfPages);
     await magentoContentPages.selectActionFromList("Disable");
-    await browser.sleep(5000);
 })
 
 Then(/^New pagees should have disabled status$/, async function() {
-    //cos
+    let result = await magentoContentPages.getMultipleRowsStatusReversed(2);
 })

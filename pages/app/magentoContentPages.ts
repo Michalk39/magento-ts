@@ -4,6 +4,7 @@ import { Actions } from "../../support/actions";
 import { protractor } from "protractor/built/ptor";
 import { MagentoContentPagesAddNewPage } from "./magentoContentPagesAddNewPage";
 import { CustomWait } from "../../support/wait";
+import { stringify } from "querystring";
 
 
 export class MagentoContentPages {
@@ -88,14 +89,17 @@ export class MagentoContentPages {
 
     async getRowStatusReversed(number: number) {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
-        let statusField = $("table[data-role='grid'] > tbody > tr:nth-last-child(" + number + ") > td:nth-chiild(7)");
-        return statusField.getText();
+        let statusField = $("table[data-role='grid'] > tbody > tr:nth-last-child(1) > td:nth-child(7) > div");
+        let status = await statusField.getText();
+        return await status;        
     }
 
     async getMultipleRowsStatusReversed(quantity: number) {
-        let rowsStatusReversed:string[];
+        await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
+        let rowsStatusReversed = new Array();
         for(let i = 1; i <= quantity; i++) {
-            await rowsStatusReversed.push(await this.getRowStatusReversed(i));
+            let status:string = await this.getRowStatusReversed(i);
+            await rowsStatusReversed.push(status);            
         }
         return await rowsStatusReversed;
     }
