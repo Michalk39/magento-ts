@@ -1,5 +1,5 @@
 import { BrowserActions } from "../../support/browser";
-import { ElementFinder, $, ElementArrayFinder, $$, browser, by } from "protractor";
+import { ElementFinder, $, ElementArrayFinder, $$, browser, by, element } from "protractor";
 import { Actions } from "../../support/actions";
 import { protractor } from "protractor/built/ptor";
 import { MagentoContentPagesAddNewPage } from "./magentoContentPagesAddNewPage";
@@ -40,9 +40,9 @@ export class MagentoContentPages {
     }
 
     async selectActionFromList(action: string) {
-        let list = $("ul.action-menu._active");
-        await Actions.click(list.$("li[data-repeat-index='1'] > span"));
-        await Actions.click($("body.cms-page-index.page-layout-admin-1column:nth-child(2) div.page-wrapper:nth-child(5) main.page-content:nth-child(4) div.page-columns div.admin__old div.main-col div.admin__data-grid-outer-wrap div.admin__data-grid-header div.admin__data-grid-header-row.row.row-gutter:nth-child(2) div.col-xs-2 div.action-select-wrap._active ul.action-menu._active li:nth-child(2) > span.action-menu-item"));
+        let listItem = await element(by.cssContainingText("ul > li > span.action-menu-item", action));
+        await Actions.click($("div.admin__data-grid-header-row.row.row-gutter > div > div.action-select-wrap > button.action-select"));        
+        await Actions.click(listItem);
     }
 
     async clickAddNewPageButton() {
@@ -75,7 +75,7 @@ export class MagentoContentPages {
 
     async clickRowCheckboxReversed(number: number) {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
-        let checkBox = $("table[data-role='grid'] > tbody > tr:nth-last-child(" + number + ") > td:first-child")
+        let checkBox = $("table[data-role='grid'] > tbody > tr:nth-last-child(" + number + ") > td:first-child");
         await Actions.click(checkBox);
     }
 
@@ -84,6 +84,20 @@ export class MagentoContentPages {
         for(let i = 1; i <= quantity; i++) {
             await this.clickRowCheckboxReversed(i);
         }
+    }
+
+    async getRowStatusReversed(number: number) {
+        await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
+        let statusField = $("table[data-role='grid'] > tbody > tr:nth-last-child(" + number + ") > td:nth-chiild(7)");
+        return statusField.getText();
+    }
+
+    async getMultipleRowsStatusReversed(quantity: number) {
+        let rowsStatusReversed:string[];
+        for(let i = 1; i <= quantity; i++) {
+            await rowsStatusReversed.push(await this.getRowStatusReversed(i));
+        }
+        return await rowsStatusReversed;
     }
 
 }
