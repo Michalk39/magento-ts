@@ -186,10 +186,23 @@ When(/^Admin perform mass disable action on the newly created pages$/, async fun
 Then(/^New pagees should have disabled status$/, async function() {
     let results = await magentoContentPages.getMultipleRowsStatusReversed(this.numberOfPages);
         
-    let expected = results.filter(function(result) {
-        return result === "Disabled";
+let expected = results.filter    (function (result) {
+
+
+            return result === "Disabled";
     })
 
     expect(results).to.have.length(expected.length);
 
+    //tslint
+    
+
+    
+
 })
+
+
+sayHello(){
+    var message = 'Hello' //złykonentarz
+    
+}
