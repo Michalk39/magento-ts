@@ -1,8 +1,8 @@
 Feature: CMS pages
 
-   Feature Description
+    Feature Description
 
-    #    @ci @magento
+    @ci @magento
     Scenario: CreateCmsPageEntity
         Given I log in as admin with 123123q password
         And Navigate to Content > Elements > Pages
@@ -12,8 +12,8 @@ Feature: CMS pages
         Then Page should be visible in table
         And Page url should be reachable
 
-        @ci @magento
+    @ci @magento
     Scenario: Cms Page Mass Action
         Given Admin creates 2 new cms pages
         When Admin perform mass disable action on the newly created pages
-        Then New pagees should have disabled status
+        Then New pagees should have Disabled status

@@ -196,11 +196,15 @@ When(/^Admin perform mass disable action on the newly created pages$/, async fun
     await magentoContentPages.selectActionFromList("Disable");
 });
 
-Then(/^New pagees should have disabled status$/, async function() {
+Then(/^New pagees should have (.+) status$/, async function(status: string) {
     const results = await magentoContentPages.getMultipleRowsStatusReversed(this.numberOfPages);
 
+    // const expected = results.filter(function(result) {
+    //     return result === "Disabled";
+    // });
+
     const expected = results.filter(function(result) {
-        return result === "Disabled";
+        magentoContentPages.filterStatus(result, status);
     });
 
     expect(results).to.have.length(expected.length);

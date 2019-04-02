@@ -2,7 +2,7 @@ Feature: New Customer Register
 
     Feature Description
 
-    # @ci @magento
+    @ci @magento
     Scenario Outline: New Customer Password Complexity Test
         Given I am on register page
         When I enter password <password>
