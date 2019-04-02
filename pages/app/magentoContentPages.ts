@@ -104,4 +104,8 @@ export class MagentoContentPages {
         }
         return await rowsStatusReversed;
     }
+
+    public async deleteTestPagesIfExist() {
+        // TODO
+    }
 }
