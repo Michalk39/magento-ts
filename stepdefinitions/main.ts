@@ -1,5 +1,12 @@
 import { Before, Given, Then, When } from "cucumber";
-import { $, $$, browser, element, ElementArrayFinder, ExpectedConditions } from "protractor";
+import {
+    $,
+    $$,
+    browser,
+    element,
+    ElementArrayFinder,
+    ExpectedConditions,
+} from "protractor";
 import { async } from "q";
 import { testConfig } from "../config/test-config";
 import { Google } from "../pages/app/google";
@@ -26,174 +33,215 @@ const googlePage: Google = new Google();
 const imageCompare: ImageCompare = new ImageCompare();
 const magentoLoginPage: MagentoAdminLogin = new MagentoAdminLogin();
 const magentoDashboard: MagentoDashboard = new MagentoDashboard();
-const magentoCustomerGroups: MagentoCustomerGroups = new MagentoCustomerGroups;
-const magentoContentPages: MagentoContentPages = new MagentoContentPages;
-const magentoContentPagesAddNewPage: MagentoContentPagesAddNewPage = new MagentoContentPagesAddNewPage;
-const magentoUserRoles: MagentoUserRoles = new MagentoUserRoles;
-const magentoUserRolesNewRole: MagentoUserRolesNewRole = new MagentoUserRolesNewRole;
-const magentoStoresConfigurationGeneralWeb: MagentoStoresConfigurationGeneralWeb = new MagentoStoresConfigurationGeneralWeb;
-const magentoHomePage: MagentoHomePage = new MagentoHomePage;
-const magentoCheckout: MagentoCheckout = new MagentoCheckout;
-const magentoRegisterPage: MagnetoRegisterPage = new MagnetoRegisterPage;
+const magentoCustomerGroups: MagentoCustomerGroups = new MagentoCustomerGroups();
+const magentoContentPages: MagentoContentPages = new MagentoContentPages();
+const magentoContentPagesAddNewPage: MagentoContentPagesAddNewPage = new MagentoContentPagesAddNewPage();
+const magentoUserRoles: MagentoUserRoles = new MagentoUserRoles();
+const magentoUserRolesNewRole: MagentoUserRolesNewRole = new MagentoUserRolesNewRole();
+const magentoStoresConfigurationGeneralWeb: MagentoStoresConfigurationGeneralWeb = new MagentoStoresConfigurationGeneralWeb();
+const magentoHomePage: MagentoHomePage = new MagentoHomePage();
+const magentoCheckout: MagentoCheckout = new MagentoCheckout();
+const magentoRegisterPage: MagnetoRegisterPage = new MagnetoRegisterPage();
 
-
-When(/^I enter "([^"]+)" phrase$/, async function (phrase: string) {
+When(/^I enter "([^"]+)" phrase$/, async function(phrase: string) {
     await Actions.attachScreenshot(this);
     await googlePage.search(phrase);
 });
 
-Then(/^I should see "([^"]+)" page in the (.+) row of the results$/, async function (expectedPhrase, resultRowIdx) {
+Then(
+    /^I should see "([^"]+)" page in the (.+) row of the results$/,
+    async function(expectedPhrase, resultRowIdx) {
+        await Actions.attachScreenshot(this);
+        expect(await googlePage.getResult(resultRowIdx)).to.contain(
+            expectedPhrase
+        );
+    }
+);
+
+Then(/^We should get a Google page$/, async function() {
     await Actions.attachScreenshot(this);
-    expect(await googlePage.getResult(resultRowIdx)).to.contain(expectedPhrase);
+    expect(await imageCompare.checkFullPageScreen("googlePage")).to.equal(0);
 });
 
-Then(/^We should get a Google page$/, async function () {
+Then(/^We should see a Google Logo$/, async function() {
     await Actions.attachScreenshot(this);
-    expect(await imageCompare.checkFullPageScreen('googlePage')).to.equal(0);
-})
+    expect(
+        await imageCompare.checkElement($("#hplogo"), "googleLogo")
+    ).to.equal(0);
+});
 
-Then(/^We should see a Google Logo$/, async function () {
+Then(/^This should be fail$/, async function() {
     await Actions.attachScreenshot(this);
-    expect(await imageCompare.checkElement($('#hplogo'), 'googleLogo')).to.equal(0);
-})
+    expect(
+        await imageCompare.checkElement($("#hplogo"), "googleLogoFail")
+    ).to.not.equal(0); // To make it failing just remove "not"
+});
 
-Then(/^This should be fail$/, async function () {
-    await Actions.attachScreenshot(this);
-    expect(await imageCompare.checkElement($('#hplogo'), 'googleLogoFail')).to.not.equal(0); // To make it failing just remove "not"
-})
-
-When(/^I log in as (.+?) with (.+?) password$/, async function (username: string, password: string) {
+When(/^I log in as (.+?) with (.+?) password$/, async function(
+    username: string,
+    password: string
+) {
     await magentoLoginPage.navigateTo();
     await magentoLoginPage.logIn(username, password);
-})
+});
 
-Then(/^I should login successfully$/, async function () {
-    expect(await magentoDashboard.h1.getText()).equal('Dashboard');
-})
+Then(/^I should login successfully$/, async function() {
+    expect(await magentoDashboard.h1.getText()).equal("Dashboard");
+});
 
-Then(/^I shouldn't login successfully$/, async function () {
+Then(/^I shouldn't login successfully$/, async function() {
     expect(await magentoLoginPage.isErrorMessageVisible()).equal(true);
-})
+});
 
-When(/^I enter incorrect data$/, async function () {
+When(/^I enter incorrect data$/, async function() {
     await magentoLoginPage.navigateTo();
-    await magentoLoginPage.logIn('wrong', 'wrong');
-})
+    await magentoLoginPage.logIn("wrong", "wrong");
+});
 
-Given(/^Navigate to Customers > Customer Groups$/, async function () {
+Given(/^Navigate to Customers > Customer Groups$/, async function() {
     await magentoCustomerGroups.navigateTo();
-})
+});
 
-Given(/^Navigate to Content > Elements > Pages$/, async function () {
+Given(/^Navigate to Content > Elements > Pages$/, async function() {
     await magentoContentPages.navigateTo();
-})
+});
 
-When(/^Select system Customer Group .*$/, async function () {
-    await browser.wait(browser.ExpectedConditions.elementToBeClickable(magentoCustomerGroups.selectIdZeroRow), 100000);
+When(/^Select system Customer Group .*$/, async function() {
+    await browser.wait(
+        browser.ExpectedConditions.elementToBeClickable(
+            magentoCustomerGroups.selectIdZeroRow
+        ),
+        100000
+    );
     await magentoCustomerGroups.clickEdit();
-})
+});
 
-Then(/^Group Name field text is (.+)$/, async function (name: string) {
-    expect(await MagentoCustomerGroupsEdit.groupNameField.getAttribute("value")).equal(name);
-})
+Then(/^Group Name field text is (.+)$/, async function(name: string) {
+    expect(
+        await MagentoCustomerGroupsEdit.groupNameField.getAttribute("value")
+    ).equal(name);
+});
 
-Then(/^Group Name field is disabled$/, async function () {
-    expect(await MagentoCustomerGroupsEdit.groupNameField.getAttribute("disabled")).equal("true");
-})
+Then(/^Group Name field is disabled$/, async function() {
+    expect(
+        await MagentoCustomerGroupsEdit.groupNameField.getAttribute("disabled")
+    ).equal("true");
+});
 
-Given(/^Start to create new CMS Page$/, async function () {
+Given(/^Start to create new CMS Page$/, async function() {
     await magentoContentPages.clickAddNewPageButton();
-})
+});
 
-Given(/^Fill out fields data according to data set$/, async function () {
+Given(/^Fill out fields data according to data set$/, async function() {
     this.pageTitle = "NewCmsPage";
     await magentoContentPagesAddNewPage.fillPageTitleField(this.pageTitle);
-})
+});
 
-When(/^Save CMS Page$/, async function () {
+When(/^Save CMS Page$/, async function() {
     await magentoContentPagesAddNewPage.clickSaveButton();
-})
+});
 
-Then(/^Page should be visible in table$/, async function () {
+Then(/^Page should be visible in table$/, async function() {
     await magentoContentPages.navigateTo();
     expect(await magentoContentPages.getLastRowTitle()).equal(this.pageTitle);
-})
+});
 
-Then(/^Page url should be reachable$/, async function () {
+Then(/^Page url should be reachable$/, async function() {
     await BrowserActions.get(await magentoContentPages.getLastRowUrl());
-    expect(await $("li.item.cms_page:nth-child(2) > strong").getText()).equal(this.pageTitle);
-})
+    expect(await $("li.item.cms_page:nth-child(2) > strong").getText()).equal(
+        this.pageTitle
+    );
+});
 
-When(/^User add New Role in User Roles page$/, async function () {
+When(/^User add New Role in User Roles page$/, async function() {
     this.userRoleName = "Admin Role";
     await magentoUserRoles.navigateTo();
     await magentoUserRoles.deleteLastRoleIfExist(this.userRoleName);
     await magentoUserRoles.clickAddNewRoleButton();
     await magentoUserRolesNewRole.createNewRole(this.userRoleName);
-})
+});
 
-Then(/^New Role should be created$/, async function () {
-    expect(await magentoUserRoles.getLastTableRowText()).equal(this.userRoleName);
-})
+Then(/^New Role should be created$/, async function() {
+    expect(await magentoUserRoles.getLastTableRowText()).equal(
+        this.userRoleName
+    );
+});
 
-When(/^Admin save selected settings$/, async function () {
+When(/^Admin save selected settings$/, async function() {
     await magentoStoresConfigurationGeneralWeb.navigateTo();
     await magentoStoresConfigurationGeneralWeb.configureHttpsData();
-})
+});
 
-Then(/^Configuration should be saved$/, async function () {
-    expect(await magentoStoresConfigurationGeneralWeb.isSaveConfigSuccesMessageVisible()).equal(true);
-})
+Then(/^Configuration should be saved$/, async function() {
+    expect(
+        await magentoStoresConfigurationGeneralWeb.isSaveConfigSuccesMessageVisible()
+    ).equal(true);
+});
 
-Given(/^Shopping cart isn't empty$/, async function () {
+Given(/^Shopping cart isn't empty$/, async function() {
     await magentoHomePage.addProductToCart();
-})
+});
 
-When(/^Enter incorrect email$/, async function () {
+When(/^Enter incorrect email$/, async function() {
     await magentoCheckout.navigateTo();
     await magentoCheckout.fillEmailAdressField("wrongMail");
     await magentoCheckout.clickNextButton();
-})
+});
 
-Then(/^Invalid email error message should be visible$/, async function () {
+Then(/^Invalid email error message should be visible$/, async function() {
     expect(await magentoCheckout.isEmailErrorVisible()).equal(true);
-})
+});
 
-Given(/^I am on register page$/, async function () {
+Given(/^I am on register page$/, async function() {
     await magentoRegisterPage.navigateTo();
-})
+});
 
-When(/^I enter password (.*)$/, async function (password: string) {
-    await magentoRegisterPage.fillRegisterForm("John", "Doe", "John@example.com", password, password);
-})
+When(/^I enter password (.*)$/, async function(password: string) {
+    await magentoRegisterPage.fillRegisterForm(
+        "John",
+        "Doe",
+        "John@example.com",
+        password,
+        password
+    );
+});
 
-Then(/^The message should be (.*)$/, async function (message: string) {
+Then(/^The message should be (.*)$/, async function(message: string) {
     expect(await magentoRegisterPage.getPasswordErrorText()).equal(message);
-})
+});
 
-Given(/^Admin creates ([0-9]+) new cms pages$/, async function (numberOfPages: number) {
+Given(/^Admin creates ([0-9]+) new cms pages$/, async function(
+    numberOfPages: number
+) {
     this.numberOfPages = numberOfPages;
     await magentoLoginPage.navigateTo();
-    await magentoLoginPage.logIn(testConfig.adminLogin, testConfig.adminPassword);
+    await magentoLoginPage.logIn(
+        testConfig.adminLogin,
+        testConfig.adminPassword
+    );
     await magentoContentPages.createMultipleTestPages(this.numberOfPages);
-})
+});
 
-When(/^Admin perform mass disable action on the newly created pages$/, async function () {
-    await magentoContentPages.selectMultipleRowsReversed(this.numberOfPages);
-    await magentoContentPages.selectActionFromList("Disable");
-})
+When(
+    /^Admin perform mass disable action on the newly created pages$/,
+    async function() {
+        await magentoContentPages.selectMultipleRowsReversed(
+            this.numberOfPages
+        );
+        await magentoContentPages.selectActionFromList("Disable");
+    }
+);
 
-Then(/^New pagees should have disabled status$/, async function () {
-    const results = await magentoContentPages.getMultipleRowsStatusReversed(this.numberOfPages);
+Then(/^New pagees should have disabled status$/, async function() {
+    const results = await magentoContentPages.getMultipleRowsStatusReversed(
+        this.numberOfPages
+    );
 
-    const expected = results.filter(function (result) {
-
-
+    const expected = results.filter(function(result) {
         return result === "Disabled";
-    })
+    });
 
-                expect(results).to.have.length(expected.length);
+    expect(results).to.have.length(expected.length);
 
-//coment
-
-})
+    //coment
+});
