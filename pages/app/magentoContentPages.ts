@@ -1,14 +1,5 @@
-import {
-    $,
-    $$,
-    browser,
-    by,
-    element,
-    ElementArrayFinder,
-    ElementFinder,
-} from "protractor";
+import { $, $$, browser, by, element, ElementArrayFinder, ElementFinder } from "protractor";
 import { protractor } from "protractor/built/ptor";
-import { stringify } from "querystring";
 import { Actions } from "../../support/actions";
 import { BrowserActions } from "../../support/browser";
 import { CustomWait } from "../../support/wait";
@@ -25,12 +16,8 @@ export class MagentoContentPages {
 
     constructor() {
         this.addNewPageButton = $("#add");
-        this.lastRowTitle = $(
-            "tbody > tr.data-row:last-child>td:nth-child(3)>div"
-        );
-        this.lastRowUrl = $(
-            "tbody > tr.data-row:last-child>td:nth-child(4)>div"
-        );
+        this.lastRowTitle = $("tbody > tr.data-row:last-child>td:nth-child(3)>div");
+        this.lastRowUrl = $("tbody > tr.data-row:last-child>td:nth-child(4)>div");
         this.actionsSelectList = $("button.action-select");
     }
 
@@ -85,9 +72,7 @@ export class MagentoContentPages {
     public async clickRowCheckboxReversed(number: number) {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
         let checkBox = $(
-            "table[data-role='grid'] > tbody > tr:nth-last-child(" +
-                number +
-                ") > td:first-child"
+            "table[data-role='grid'] > tbody > tr:nth-last-child(" + number + ") > td:first-child"
         );
         await Actions.click(checkBox);
     }

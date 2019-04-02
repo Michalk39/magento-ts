@@ -1,12 +1,5 @@
 import { Before, Given, Then, When } from "cucumber";
-import {
-    $,
-    $$,
-    browser,
-    element,
-    ElementArrayFinder,
-    ExpectedConditions,
-} from "protractor";
+import { $, $$, browser, element, ElementArrayFinder, ExpectedConditions } from "protractor";
 import { async } from "q";
 import { testConfig } from "../config/test-config";
 import { Google } from "../pages/app/google";
@@ -48,15 +41,13 @@ When(/^I enter "([^"]+)" phrase$/, async function(phrase: string) {
     await googlePage.search(phrase);
 });
 
-Then(
-    /^I should see "([^"]+)" page in the (.+) row of the results$/,
-    async function(expectedPhrase, resultRowIdx) {
-        await Actions.attachScreenshot(this);
-        expect(await googlePage.getResult(resultRowIdx)).to.contain(
-            expectedPhrase
-        );
-    }
-);
+Then(/^I should see "([^"]+)" page in the (.+) row of the results$/, async function(
+    expectedPhrase,
+    resultRowIdx
+) {
+    await Actions.attachScreenshot(this);
+    expect(await googlePage.getResult(resultRowIdx)).to.contain(expectedPhrase);
+});
 
 Then(/^We should get a Google page$/, async function() {
     await Actions.attachScreenshot(this);
@@ -65,22 +56,15 @@ Then(/^We should get a Google page$/, async function() {
 
 Then(/^We should see a Google Logo$/, async function() {
     await Actions.attachScreenshot(this);
-    expect(
-        await imageCompare.checkElement($("#hplogo"), "googleLogo")
-    ).to.equal(0);
+    expect(await imageCompare.checkElement($("#hplogo"), "googleLogo")).to.equal(0);
 });
 
 Then(/^This should be fail$/, async function() {
     await Actions.attachScreenshot(this);
-    expect(
-        await imageCompare.checkElement($("#hplogo"), "googleLogoFail")
-    ).to.not.equal(0); // To make it failing just remove "not"
+    expect(await imageCompare.checkElement($("#hplogo"), "googleLogoFail")).to.not.equal(0); // To make it failing just remove "not"
 });
 
-When(/^I log in as (.+?) with (.+?) password$/, async function(
-    username: string,
-    password: string
-) {
+When(/^I log in as (.+?) with (.+?) password$/, async function(username: string, password: string) {
     await magentoLoginPage.navigateTo();
     await magentoLoginPage.logIn(username, password);
 });
@@ -108,24 +92,18 @@ Given(/^Navigate to Content > Elements > Pages$/, async function() {
 
 When(/^Select system Customer Group .*$/, async function() {
     await browser.wait(
-        browser.ExpectedConditions.elementToBeClickable(
-            magentoCustomerGroups.selectIdZeroRow
-        ),
+        browser.ExpectedConditions.elementToBeClickable(magentoCustomerGroups.selectIdZeroRow),
         100000
     );
     await magentoCustomerGroups.clickEdit();
 });
 
 Then(/^Group Name field text is (.+)$/, async function(name: string) {
-    expect(
-        await MagentoCustomerGroupsEdit.groupNameField.getAttribute("value")
-    ).equal(name);
+    expect(await MagentoCustomerGroupsEdit.groupNameField.getAttribute("value")).equal(name);
 });
 
 Then(/^Group Name field is disabled$/, async function() {
-    expect(
-        await MagentoCustomerGroupsEdit.groupNameField.getAttribute("disabled")
-    ).equal("true");
+    expect(await MagentoCustomerGroupsEdit.groupNameField.getAttribute("disabled")).equal("true");
 });
 
 Given(/^Start to create new CMS Page$/, async function() {
@@ -148,9 +126,7 @@ Then(/^Page should be visible in table$/, async function() {
 
 Then(/^Page url should be reachable$/, async function() {
     await BrowserActions.get(await magentoContentPages.getLastRowUrl());
-    expect(await $("li.item.cms_page:nth-child(2) > strong").getText()).equal(
-        this.pageTitle
-    );
+    expect(await $("li.item.cms_page:nth-child(2) > strong").getText()).equal(this.pageTitle);
 });
 
 When(/^User add New Role in User Roles page$/, async function() {
@@ -162,9 +138,7 @@ When(/^User add New Role in User Roles page$/, async function() {
 });
 
 Then(/^New Role should be created$/, async function() {
-    expect(await magentoUserRoles.getLastTableRowText()).equal(
-        this.userRoleName
-    );
+    expect(await magentoUserRoles.getLastTableRowText()).equal(this.userRoleName);
 });
 
 When(/^Admin save selected settings$/, async function() {
@@ -173,9 +147,9 @@ When(/^Admin save selected settings$/, async function() {
 });
 
 Then(/^Configuration should be saved$/, async function() {
-    expect(
-        await magentoStoresConfigurationGeneralWeb.isSaveConfigSuccesMessageVisible()
-    ).equal(true);
+    expect(await magentoStoresConfigurationGeneralWeb.isSaveConfigSuccesMessageVisible()).equal(
+        true
+    );
 });
 
 Given(/^Shopping cart isn't empty$/, async function() {
@@ -210,32 +184,20 @@ Then(/^The message should be (.*)$/, async function(message: string) {
     expect(await magentoRegisterPage.getPasswordErrorText()).equal(message);
 });
 
-Given(/^Admin creates ([0-9]+) new cms pages$/, async function(
-    numberOfPages: number
-) {
+Given(/^Admin creates ([0-9]+) new cms pages$/, async function(numberOfPages: number) {
     this.numberOfPages = numberOfPages;
     await magentoLoginPage.navigateTo();
-    await magentoLoginPage.logIn(
-        testConfig.adminLogin,
-        testConfig.adminPassword
-    );
+    await magentoLoginPage.logIn(testConfig.adminLogin, testConfig.adminPassword);
     await magentoContentPages.createMultipleTestPages(this.numberOfPages);
 });
 
-When(
-    /^Admin perform mass disable action on the newly created pages$/,
-    async function() {
-        await magentoContentPages.selectMultipleRowsReversed(
-            this.numberOfPages
-        );
-        await magentoContentPages.selectActionFromList("Disable");
-    }
-);
+When(/^Admin perform mass disable action on the newly created pages$/, async function() {
+    await magentoContentPages.selectMultipleRowsReversed(this.numberOfPages);
+    await magentoContentPages.selectActionFromList("Disable");
+});
 
 Then(/^New pagees should have disabled status$/, async function() {
-    const results = await magentoContentPages.getMultipleRowsStatusReversed(
-        this.numberOfPages
-    );
+    const results = await magentoContentPages.getMultipleRowsStatusReversed(this.numberOfPages);
 
     const expected = results.filter(function(result) {
         return result === "Disabled";

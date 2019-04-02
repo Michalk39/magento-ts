@@ -3,9 +3,8 @@ import { BrowserActions } from "../../support/browser";
 import { Actions } from "../../support/actions";
 import { protractor } from "protractor/built/ptor";
 
-
 export class MagentoHomePage {
-    private url:string = "index.php";
+    private url: string = "index.php";
     private cartIcon: ElementFinder;
     private searchField: ElementFinder;
     private searchMagnifier: ElementFinder;
@@ -42,12 +41,12 @@ export class MagentoHomePage {
         await this.clickSearchMagnifier();
     }
 
-    public async addProductToCart() { //to by można było sparametryzować
-        let productName:string = "Example Product";
+    public async addProductToCart() {
+        //to by można było sparametryzować
+        let productName: string = "Example Product";
         await this.navigateTo();
         await this.searchPhrase(productName);
-        await Actions.click(await element(by.cssContainingText('.product-item-link', productName)));
+        await Actions.click(await element(by.cssContainingText(".product-item-link", productName)));
         await this.clickAddToCartButton();
     }
-
 }

@@ -26,13 +26,29 @@ export class MagnetoRegisterPage {
         await BrowserActions.get(this.url);
     }
 
-    public async fillFirstName(name: string) {await Actions.sendKeys(this.firstNameField, name);}
-    public async fillLastName(lastName: string) {await Actions.sendKeys(this.lastNameField, lastName);}
-    public async fillEmail(email: string) {await Actions.sendKeys(this.emailFielld, email);}
-    public async fillPassword(password: string) {await Actions.sendKeys(this.passwordField, password);}
-    public async fillConfirmPassword(confirmPassword: string) {await Actions.sendKeys(this.confirmPasswordField, confirmPassword);}
+    public async fillFirstName(name: string) {
+        await Actions.sendKeys(this.firstNameField, name);
+    }
+    public async fillLastName(lastName: string) {
+        await Actions.sendKeys(this.lastNameField, lastName);
+    }
+    public async fillEmail(email: string) {
+        await Actions.sendKeys(this.emailFielld, email);
+    }
+    public async fillPassword(password: string) {
+        await Actions.sendKeys(this.passwordField, password);
+    }
+    public async fillConfirmPassword(confirmPassword: string) {
+        await Actions.sendKeys(this.confirmPasswordField, confirmPassword);
+    }
 
-    public async fillRegisterForm(name: string, lastName: string, email: string, password:string, confirmPassword:string) {
+    public async fillRegisterForm(
+        name: string,
+        lastName: string,
+        email: string,
+        password: string,
+        confirmPassword: string
+    ) {
         await this.fillFirstName(name);
         await this.fillLastName(lastName);
         await this.fillEmail(email);
@@ -49,11 +65,10 @@ export class MagnetoRegisterPage {
     }
 
     public async getPasswordErrorText() {
-        if(this.isPasswordErrorVisible()) {
+        if (this.isPasswordErrorVisible()) {
             return await this.passwordErrorMessage.getText();
         } else {
             return "";
         }
     }
-
 }
