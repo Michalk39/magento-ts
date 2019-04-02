@@ -91,10 +91,7 @@ Given(/^Navigate to Content > Elements > Pages$/, async function() {
 });
 
 When(/^Select system Customer Group .*$/, async function() {
-    await browser.wait(
-        browser.ExpectedConditions.elementToBeClickable(magentoCustomerGroups.selectIdZeroRow),
-        100000
-    );
+    await CustomWait.waitForElementToBeClickable(magentoCustomerGroups.selectIdZeroRow);
     await magentoCustomerGroups.clickEdit();
 });
 
@@ -186,7 +183,6 @@ Then(/^The message should be (.*)$/, async function(message: string) {
 
 Given(/^Admin creates ([0-9]+) new cms pages$/, async function(numberOfPages: number) {
     this.numberOfPages = numberOfPages;
-    await magentoLoginPage.navigateTo();
     await magentoLoginPage.logIn(testConfig.adminLogin, testConfig.adminPassword);
     await magentoContentPages.createMultipleTestPages(this.numberOfPages);
 });
@@ -199,12 +195,8 @@ When(/^Admin perform mass disable action on the newly created pages$/, async fun
 Then(/^New pagees should have (.+) status$/, async function(status: string) {
     const results = await magentoContentPages.getMultipleRowsStatusReversed(this.numberOfPages);
 
-    // const expected = results.filter(function(result) {
-    //     return result === "Disabled";
-    // });
-
     const expected = results.filter(function(result) {
-        magentoContentPages.filterStatus(result, status);
+        return result === status;
     });
 
     expect(results).to.have.length(expected.length);

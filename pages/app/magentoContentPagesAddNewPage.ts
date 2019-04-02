@@ -2,13 +2,9 @@ import { BrowserActions } from "../../support/browser";
 import { ElementFinder, $, ElementArrayFinder, $$ } from "protractor";
 import { Actions } from "../../support/actions";
 
-
-
-
 export class MagentoContentPagesAddNewPage {
     private saveButton: ElementFinder;
     private pageTitleField: ElementFinder;
-
 
     constructor() {
         this.saveButton = $("#save-button");
@@ -22,5 +18,4 @@ export class MagentoContentPagesAddNewPage {
     async clickSaveButton() {
         await Actions.click(this.saveButton);
     }
-
 }

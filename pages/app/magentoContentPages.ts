@@ -104,8 +104,4 @@ export class MagentoContentPages {
         }
         return await rowsStatusReversed;
     }
-
-    public async filterStatus(result, status: string) {
-        return result === status;
-    }
 }

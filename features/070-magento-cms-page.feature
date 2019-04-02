@@ -12,7 +12,7 @@ Feature: CMS pages
         Then Page should be visible in table
         And Page url should be reachable
 
-    @ci @magento
+    @ci @magento @current
     Scenario: Cms Page Mass Action
         Given Admin creates 2 new cms pages
         When Admin perform mass disable action on the newly created pages
