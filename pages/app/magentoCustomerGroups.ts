@@ -3,7 +3,7 @@ import { Actions } from "../../support/actions";
 import { BrowserActions } from "../../support/browser";
 
 export class MagentoCustomerGroups {
-    private url: string = "index.php/admin/customer/group";
+    private url: string = "index.php/admin/customer/group/";
     public selectIdZeroRow: ElementFinder;
 
     constructor() {

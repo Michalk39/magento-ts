@@ -4,7 +4,7 @@ import { Actions } from "../../support/actions";
 import { testConfig } from "../../config/test-config";
 
 export class MagentoUserRolesNewRole {
-    private url: string = "index.php/admin/admin/user_role/editrole";
+    private url: string = "index.php/admin/admin/user_role/editrole/";
     private roleNameField: ElementFinder;
     private yourPasswordField: ElementFinder;
     private roleInfoTab: ElementFinder;
@@ -19,7 +19,9 @@ export class MagentoUserRolesNewRole {
         this.roleInfoTab = $("#role_info_tabs_info");
         this.roleResourcesTab = $("#role_info_tabs_account");
         this.resourceAccessSelect = $("#all");
-        this.resourcesListSalesCheckbox = $("li[data-id='Magento_Sales::sales'] > a > ins:first-child");
+        this.resourcesListSalesCheckbox = $(
+            "li[data-id='Magento_Sales::sales'] > a > ins:first-child"
+        );
         this.saveRoleButton = $("button[title='Save Role']");
     }
 
@@ -52,5 +54,4 @@ export class MagentoUserRolesNewRole {
         await this.clickSalesCheckbox();
         await this.clickSaveRoleButton();
     }
-
 }

@@ -3,7 +3,7 @@ import { ElementFinder, $ } from "protractor";
 import { Actions } from "../../support/actions";
 
 export class MagnetoRegisterPage {
-    private url = "customer/account/create";
+    private url = "customer/account/create/";
     private firstNameField: ElementFinder;
     private lastNameField: ElementFinder;
     private emailFielld: ElementFinder;

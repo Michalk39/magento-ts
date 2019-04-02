@@ -3,7 +3,7 @@ import { ElementFinder, $ } from "protractor";
 import { Actions } from "../../support/actions";
 
 export class MagentoCheckout {
-    private url: string = "index.php/checkout";
+    private url: string = "index.php/checkout/";
     private emailAdressField: ElementFinder;
     private nextButton: ElementFinder;
     private customerEmailErrorMessage: ElementFinder;

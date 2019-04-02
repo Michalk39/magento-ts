@@ -4,7 +4,7 @@ import { Actions } from "../../support/actions";
 import { protractor } from "protractor/built/ptor";
 
 export class MagentoHomePage {
-    private url: string = "index.php";
+    private url: string = "";
     private cartIcon: ElementFinder;
     private searchField: ElementFinder;
     private searchMagnifier: ElementFinder;

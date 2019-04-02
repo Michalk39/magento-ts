@@ -6,7 +6,7 @@ import { CustomWait } from "../../support/wait";
 import { MagentoContentPagesAddNewPage } from "./magentoContentPagesAddNewPage";
 
 export class MagentoContentPages {
-    private url: string = "index.php/admin/cms/page";
+    private url: string = "index.php/admin/cms/page/";
     private addNewPageButton: ElementFinder;
     private lastRowTitle: ElementFinder;
     private lastRowUrl: ElementFinder;
@@ -54,7 +54,7 @@ export class MagentoContentPages {
 
     public async getLastRowUrl() {
         await CustomWait.waitForElementToBeClickable(this.lastRowUrl);
-        return await this.lastRowUrl.getText();
+        return this.lastRowUrl.getText();
     }
 
     public async createNewTestPage(pageName: string = "Test Cms Page") {

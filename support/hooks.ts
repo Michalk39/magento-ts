@@ -9,9 +9,9 @@ var { setDefaultTimeout } = require("cucumber");
 setDefaultTimeout(99999 * 1000);
 
 Before(async function(scenario) {
-    await BrowserActions.get("/");
+    // await BrowserActions.get("/");
     await Actions.attachScreenshot(this);
-    await Actions.log(`Loaded "/"`);
+    // await Actions.log(`Loaded "/"`);
 });
 
 After(async function(scenario) {

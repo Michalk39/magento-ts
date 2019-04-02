@@ -1,11 +1,11 @@
-import { $, $$, ElementFinder, ElementArrayFinder } from "protractor";
+import { $, $$, ElementFinder, ElementArrayFinder, browser } from "protractor";
 import { Actions } from "../../support/actions";
 import { BrowserActions } from "../../support/browser";
 import { logger } from "../../support/logger";
 import { CustomWait } from "../../support/wait";
 
 export class MagentoAdminLogin {
-    private url: string = "index.php/admin/admin";
+    private url: string = "index.php/admin/admin/";
     private usernameInput: ElementFinder;
     private passwordInput: ElementFinder;
     private signInButton: ElementFinder;
@@ -19,15 +19,19 @@ export class MagentoAdminLogin {
     }
 
     public async navigateTo() {
-        BrowserActions.get(this.url);
+        await BrowserActions.get(this.url);
     }
 
     public async logIn(username: string, password: string) {
         await this.navigateTo();
-        await CustomWait.waitForElementToBeClickable(this.signInButton);
-        await Actions.sendKeys(this.usernameInput, username);
-        await Actions.sendKeys(this.passwordInput, password);
-        await Actions.click(this.signInButton);
+        let url = await browser.getCurrentUrl();
+        await CustomWait.waitForLoad(CustomWait.timeouts.tiny);
+        if (!url.includes("dashboard")) {
+            await CustomWait.waitForElementToBeClickable(this.signInButton);
+            await Actions.sendKeys(this.usernameInput, username);
+            await Actions.sendKeys(this.passwordInput, password);
+            await Actions.click(this.signInButton);
+        }
     }
 
     public async getErrorMessage() {

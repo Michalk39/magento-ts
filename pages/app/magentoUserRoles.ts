@@ -3,7 +3,7 @@ import { ElementFinder, $ } from "protractor";
 import { Actions } from "../../support/actions";
 
 export class MagentoUserRoles {
-    private url: string = "index.php/admin/admin/user_role";
+    private url: string = "index.php/admin/admin/user_role/";
     private addNewRoleButton: ElementFinder;
     private lastTableRow: ElementFinder;
 
@@ -12,8 +12,7 @@ export class MagentoUserRoles {
         this.lastTableRow = $("tbody > tr:last-child > td:nth-child(2)");
     }
 
-    public async navigateTo()
-    {
+    public async navigateTo() {
         await BrowserActions.get(this.url);
     }
 
