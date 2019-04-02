@@ -242,6 +242,4 @@ Then(/^New pagees should have disabled status$/, async function() {
     });
 
     expect(results).to.have.length(expected.length);
-
-    //coment
 });

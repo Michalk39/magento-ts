@@ -23,10 +23,6 @@ export class MagentoContentPages {
     private magentoContentPagesAddNewPage: MagentoContentPagesAddNewPage = new MagentoContentPagesAddNewPage();
     private actionsSelectList: ElementFinder;
 
-    // private rowCheckbox;
-    //private tableOfPages;
-    //private tableOfPages asddasdass;
-
     constructor() {
         this.addNewPageButton = $("#add");
         this.lastRowTitle = $(
@@ -36,19 +32,17 @@ export class MagentoContentPages {
             "tbody > tr.data-row:last-child>td:nth-child(4)>div"
         );
         this.actionsSelectList = $("button.action-select");
-
-        //this.tableOfPages = this.buildTable();
     }
 
     public async navigateTo() {
         await BrowserActions.get(this.url);
     }
 
-    async clickActionsSelectList() {
+    public async clickActionsSelectList() {
         await Actions.click(this.actionsSelectList);
     }
 
-    async selectActionFromList(action: string) {
+    public async selectActionFromList(action: string) {
         let listItem = await element(
             by.cssContainingText("ul > li > span.action-menu-item", action)
         );
@@ -60,21 +54,21 @@ export class MagentoContentPages {
         await Actions.click(listItem);
     }
 
-    async clickAddNewPageButton() {
+    public async clickAddNewPageButton() {
         await Actions.click(this.addNewPageButton);
     }
 
-    async getLastRowTitle() {
+    public async getLastRowTitle() {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
         return await this.lastRowTitle.getText();
     }
 
-    async getLastRowUrl() {
+    public async getLastRowUrl() {
         await CustomWait.waitForElementToBeClickable(this.lastRowUrl);
         return await this.lastRowUrl.getText();
     }
 
-    async createNewTestPage(pageName: string = "Test Cms Page") {
+    public async createNewTestPage(pageName: string = "Test Cms Page") {
         await this.navigateTo();
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
         await this.clickAddNewPageButton();
@@ -82,13 +76,13 @@ export class MagentoContentPages {
         await this.magentoContentPagesAddNewPage.clickSaveButton();
     }
 
-    async createMultipleTestPages(number: number) {
+    public async createMultipleTestPages(number: number) {
         for (let i = 0; i < number; i++) {
             await this.createNewTestPage("TestCMSPage" + String(i + 1));
         }
     }
 
-    async clickRowCheckboxReversed(number: number) {
+    public async clickRowCheckboxReversed(number: number) {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
         let checkBox = $(
             "table[data-role='grid'] > tbody > tr:nth-last-child(" +
@@ -98,23 +92,25 @@ export class MagentoContentPages {
         await Actions.click(checkBox);
     }
 
-    async selectMultipleRowsReversed(quantity: number) {
+    public async selectMultipleRowsReversed(quantity: number) {
         this.navigateTo();
         for (let i = 1; i <= quantity; i++) {
             await this.clickRowCheckboxReversed(i);
         }
     }
 
-    async getRowStatusReversed(number: number) {
+    public async getRowStatusReversed(number: number) {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
         let statusField = $(
-            "table[data-role='grid'] > tbody > tr:nth-last-child(1) > td:nth-child(7) > div"
+            "table[data-role='grid'] > tbody > tr:nth-last-child(" +
+                number +
+                ") > td:nth-child(7) > div"
         );
         let status = await statusField.getText();
         return await status;
     }
 
-    async getMultipleRowsStatusReversed(quantity: number) {
+    public async getMultipleRowsStatusReversed(quantity: number) {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
         let rowsStatusReversed = new Array();
         for (let i = 1; i <= quantity; i++) {
