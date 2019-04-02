@@ -2,6 +2,7 @@ import { $, $$, ElementFinder, ElementArrayFinder } from "protractor";
 import { Actions } from "../../support/actions";
 import { BrowserActions } from "../../support/browser";
 import { logger } from "../../support/logger";
+import { CustomWait } from "../../support/wait";
 
 export class MagentoAdminLogin {
     private url: string = "index.php/admin/admin";
@@ -23,6 +24,7 @@ export class MagentoAdminLogin {
 
     public async logIn(username: string, password: string) {
         await this.navigateTo();
+        await CustomWait.waitForElementToBeClickable(this.signInButton);
         await Actions.sendKeys(this.usernameInput, username);
         await Actions.sendKeys(this.passwordInput, password);
         await Actions.click(this.signInButton);

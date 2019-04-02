@@ -49,23 +49,7 @@ Then(/^I should see "([^"]+)" page in the (.+) row of the results$/, async funct
     expect(await googlePage.getResult(resultRowIdx)).to.contain(expectedPhrase);
 });
 
-Then(/^We should get a Google page$/, async function() {
-    await Actions.attachScreenshot(this);
-    expect(await imageCompare.checkFullPageScreen("googlePage")).to.equal(0);
-});
-
-Then(/^We should see a Google Logo$/, async function() {
-    await Actions.attachScreenshot(this);
-    expect(await imageCompare.checkElement($("#hplogo"), "googleLogo")).to.equal(0);
-});
-
-Then(/^This should be fail$/, async function() {
-    await Actions.attachScreenshot(this);
-    expect(await imageCompare.checkElement($("#hplogo"), "googleLogoFail")).to.not.equal(0); // To make it failing just remove "not"
-});
-
 When(/^I log in as (.+?) with (.+?) password$/, async function(username: string, password: string) {
-    await magentoLoginPage.navigateTo();
     await magentoLoginPage.logIn(username, password);
 });
 
@@ -78,7 +62,6 @@ Then(/^I shouldn't login successfully$/, async function() {
 });
 
 When(/^I enter incorrect data$/, async function() {
-    await magentoLoginPage.navigateTo();
     await magentoLoginPage.logIn("wrong", "wrong");
 });
 
@@ -87,6 +70,7 @@ Given(/^Navigate to Customers > Customer Groups$/, async function() {
 });
 
 Given(/^Navigate to Content > Elements > Pages$/, async function() {
+    await magentoLoginPage.logIn(testConfig.adminLogin, testConfig.adminPassword);
     await magentoContentPages.navigateTo();
 });
 
@@ -104,11 +88,12 @@ Then(/^Group Name field is disabled$/, async function() {
 });
 
 Given(/^Start to create new CMS Page$/, async function() {
+    await magentoContentPages.deleteTestPagesIfExist();
     await magentoContentPages.clickAddNewPageButton();
 });
 
 Given(/^Fill out fields data according to data set$/, async function() {
-    this.pageTitle = "NewCmsPage";
+    this.pageTitle = "TestCMSPage";
     await magentoContentPagesAddNewPage.fillPageTitleField(this.pageTitle);
 });
 
@@ -184,6 +169,7 @@ Then(/^The message should be (.*)$/, async function(message: string) {
 Given(/^Admin creates ([0-9]+) new cms pages$/, async function(numberOfPages: number) {
     this.numberOfPages = numberOfPages;
     await magentoLoginPage.logIn(testConfig.adminLogin, testConfig.adminPassword);
+    await magentoContentPages.deleteTestPagesIfExist();
     await magentoContentPages.createMultipleTestPages(this.numberOfPages);
 });
 

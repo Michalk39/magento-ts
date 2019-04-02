@@ -13,12 +13,14 @@ export class MagentoContentPages {
     private EC = protractor.ExpectedConditions;
     private magentoContentPagesAddNewPage: MagentoContentPagesAddNewPage = new MagentoContentPagesAddNewPage();
     private actionsSelectList: ElementFinder;
+    private okButtonOnDeletePopup: ElementFinder;
 
     constructor() {
         this.addNewPageButton = $("#add");
         this.lastRowTitle = $("tbody > tr.data-row:last-child>td:nth-child(3)>div");
         this.lastRowUrl = $("tbody > tr.data-row:last-child>td:nth-child(4)>div");
         this.actionsSelectList = $("button.action-select");
+        this.okButtonOnDeletePopup = $(".action-accept span");
     }
 
     public async navigateTo() {
@@ -69,6 +71,16 @@ export class MagentoContentPages {
         }
     }
 
+    public async clickRowCheckbox(number: number) {
+        await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
+        const tableRowOffset = 1;
+        number = number + tableRowOffset;
+        let checkBox = $(
+            "table[data-role='grid'] > tbody > tr:nth-child(" + number + ") > td:first-child"
+        );
+        await Actions.click(checkBox);
+    }
+
     public async clickRowCheckboxReversed(number: number) {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
         let checkBox = $(
@@ -95,6 +107,17 @@ export class MagentoContentPages {
         return await status;
     }
 
+    public async getRowUrlKey(number: number) {
+        await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
+        const tableRowOffset = 1;
+        number = number + tableRowOffset;
+        let urlKeyField = $(
+            "table[data-role='grid'] > tbody > tr:nth-child(" + number + ") > td:nth-child(4) > div"
+        );
+        let urlKey = await urlKeyField.getText();
+        return urlKey;
+    }
+
     public async getMultipleRowsStatusReversed(quantity: number) {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
         let rowsStatusReversed = new Array();
@@ -106,6 +129,20 @@ export class MagentoContentPages {
     }
 
     public async deleteTestPagesIfExist() {
-        // TODO
+        await this.navigateTo();
+        await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
+        let UrlKeys = $$("table[data-role='grid'] > tbody > tr > td:nth-child(4) > div");
+        let numOfRows = await $$("table[data-role='grid'] > tbody > tr").count();
+
+        for (let i = 1; i < numOfRows; i++) {
+            let urlKey = await this.getRowUrlKey(i);
+            if (urlKey.includes("testcmspage")) {
+                await this.clickRowCheckbox(i);
+            }
+        }
+
+        await this.selectActionFromList("Delete");
+        await CustomWait.waitForElementToBeClickable(this.okButtonOnDeletePopup);
+        await Actions.click(this.okButtonOnDeletePopup);
     }
 }

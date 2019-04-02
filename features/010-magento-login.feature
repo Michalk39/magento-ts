@@ -1,4 +1,4 @@
-Feature: 030 - Magento Login
+Feature: Magento Login
 
     @ci @magento
     Scenario: Admin login success
