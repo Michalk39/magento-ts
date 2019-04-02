@@ -28,11 +28,9 @@ export class MagentoContentPages {
         //this.tableOfPages = this.buildTable();
     }
 
-    private async buildTable() {
-        //zbudować jakos tabele
-    }
 
-    async navigateTo() {
+
+    public async navigateTo() {
         await BrowserActions.get(this.url);
     };
 
