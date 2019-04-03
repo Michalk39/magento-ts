@@ -11,7 +11,17 @@
         "outDir": "typeScript",
         "typeRoots": ["./node_modules/@types"],
         "types": ["node", "cucumber"],
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "plugins": [
+            {
+              "name": "typescript-tslint-plugin",
+              "alwaysShowRuleFailuresAsWarnings": false,
+              "ignoreDefinitionFiles": true,
+              "configFile": "./tslint.json",
+              "suppressWhileTypeErrorsPresent": false,
+              "mockTypeScriptVersion": false
+            }
+          ]
     },
     "exclude": [
         "node_modules",

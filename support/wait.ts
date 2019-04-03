@@ -1,4 +1,4 @@
-import { browser, ExpectedConditions, ElementFinder, until } from 'protractor';
+import { browser, ElementFinder } from 'protractor';
 
 class CustomWait {
 

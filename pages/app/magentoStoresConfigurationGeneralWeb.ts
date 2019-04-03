@@ -2,9 +2,8 @@ import { ElementFinder, $, by } from "protractor";
 import { Actions } from "../../support/actions";
 import { BrowserActions } from "../../support/browser";
 
-
 export class MagentoStoresConfigurationGeneralWeb {
-    private url = "index.php/admin/admin/system_config/edit/section/web";
+    private url = "index.php/admin/admin/system_config/edit/section/web/";
     private useSecureUrlsOnStorefrontCheckbox: ElementFinder;
     private useSecureUrlsOnStorefrontSelect: ElementFinder;
     private baseUrlsSecureSection: ElementFinder;
@@ -24,7 +23,7 @@ export class MagentoStoresConfigurationGeneralWeb {
     }
 
     public async expandBaseUrlsSecureSection() {
-        if(await this.baseUrlsSecureSection.getAttribute("class") != "open") {
+        if ((await this.baseUrlsSecureSection.getAttribute("class")) != "open") {
             await Actions.click(this.baseUrlsSecureSection);
         }
     }
@@ -34,7 +33,9 @@ export class MagentoStoresConfigurationGeneralWeb {
     }
 
     public async selectUseSecureUrlsOnStorefrontSelectValue(value: string) {
-        await Actions.click(this.useSecureUrlsOnStorefrontSelect.element(by.cssContainingText('option', value)));    
+        await Actions.click(
+            this.useSecureUrlsOnStorefrontSelect.element(by.cssContainingText("option", value))
+        );
     }
 
     public async clickSaveConfigButton() {
@@ -42,13 +43,13 @@ export class MagentoStoresConfigurationGeneralWeb {
     }
 
     public async uncheckUseSecureUrlsOnStorefrontCheckbox() {
-        if(await this.useSecureUrlsOnStorefrontCheckbox.getAttribute("checked") == "true") {
+        if ((await this.useSecureUrlsOnStorefrontCheckbox.getAttribute("checked")) == "true") {
             await this.clickUseSecureUrlsOnStorefrontCheckbox();
         }
     }
 
     public async isSaveConfigSuccesMessageVisible() {
-            return await this.saveConfigSuccesMessage.isPresent();
+        return await this.saveConfigSuccesMessage.isPresent();
     }
 
     public async configureHttpsData() {
