@@ -20,6 +20,7 @@
     ],
     "main": "index.js",
     "scripts": {
+        "pre-test": "node ./node_modules/rimraf/bin.js './tmp'",
         "test": "node -r ts-node/register ./node_modules/protractor/bin/protractor config/config.ts",
         "headless": "node -r ts-node/register ./node_modules/protractor/bin/protractor config/config.headless.ts",
         "scenario": "node -r ts-node/register ./node_modules/protractor/bin/protractor config/config.ts --cucumberOpts.tags=\"@scenario\"",
