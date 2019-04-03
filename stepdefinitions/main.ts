@@ -34,7 +34,7 @@ const magentoCheckout: MagentoCheckout = new MagentoCheckout();
 const magentoRegisterPage: MagnetoRegisterPage = new MagnetoRegisterPage();
 
 When(/^I log in as admin with correct data$/, async function() {
-    await magentoLoginPage.logIn(testConfig.adminLogin, testConfig.adminPassword);
+    await magentoLoginPage.logIn();
 });
 
 When(/^I log in as admin with incorrect data$/, async function() {
@@ -58,7 +58,7 @@ Given(/^Navigate to Customers > Customer Groups$/, async function() {
 });
 
 Given(/^Navigate to Content > Elements > Pages$/, async function() {
-    await magentoLoginPage.logIn(testConfig.adminLogin, testConfig.adminPassword);
+    await magentoLoginPage.logIn();
     await magentoContentPages.navigateTo();
 });
 
@@ -156,7 +156,7 @@ Then(/^The message should be (.*)$/, async function(message: string) {
 
 Given(/^Admin creates ([0-9]+) new cms pages$/, async function(numberOfPages: number) {
     this.numberOfPages = numberOfPages;
-    await magentoLoginPage.logIn(testConfig.adminLogin, testConfig.adminPassword);
+    await magentoLoginPage.logIn();
     await magentoContentPages.deleteTestPagesIfExist();
     await magentoContentPages.createMultipleTestPages(this.numberOfPages);
 });
