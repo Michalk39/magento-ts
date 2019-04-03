@@ -3,6 +3,7 @@ import { Actions } from "../../support/actions";
 import { BrowserActions } from "../../support/browser";
 import { logger } from "../../support/logger";
 import { CustomWait } from "../../support/wait";
+import { testConfig } from "../../config/test-config";
 
 export class MagentoAdminLogin {
     private url: string = "index.php/admin/admin/";
@@ -22,7 +23,10 @@ export class MagentoAdminLogin {
         await BrowserActions.get(this.url);
     }
 
-    public async logIn(username: string, password: string) {
+    public async logIn(
+        username: string = testConfig.adminLogin,
+        password: string = testConfig.adminPassword
+    ) {
         await this.navigateTo();
         let url = await browser.getCurrentUrl();
         await CustomWait.waitForLoad(CustomWait.timeouts.tiny);

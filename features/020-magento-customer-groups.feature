@@ -4,7 +4,7 @@ Feature: Magento Customer Groups
 
     @ci @magento
     Scenario: VerifyDisabledCustomerGroupFieldTest
-        Given I log in as admin with 123123q password
+        Given I log in as admin with correct data
         And Navigate to Customers > Customer Groups
         When Select system Customer Group specified in data set from grid
         Then Group Name field text is NOT LOGGED IN

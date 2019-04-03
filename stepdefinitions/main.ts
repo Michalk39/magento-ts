@@ -33,8 +33,12 @@ const magentoHomePage: MagentoHomePage = new MagentoHomePage();
 const magentoCheckout: MagentoCheckout = new MagentoCheckout();
 const magentoRegisterPage: MagnetoRegisterPage = new MagnetoRegisterPage();
 
-When(/^I log in as (.+?) with (.+?) password$/, async function(username: string, password: string) {
-    await magentoLoginPage.logIn(username, password);
+When(/^I log in as admin with correct data$/, async function() {
+    await magentoLoginPage.logIn(testConfig.adminLogin, testConfig.adminPassword);
+});
+
+When(/^I log in as admin with incorrect data$/, async function() {
+    await magentoLoginPage.logIn(testConfig.adminLogin, testConfig.adminWrongPassword);
 });
 
 Then(/^I should login successfully$/, async function() {
@@ -45,9 +49,9 @@ Then(/^I shouldn't login successfully$/, async function() {
     expect(await magentoLoginPage.isErrorMessageVisible()).equal(true);
 });
 
-When(/^I enter incorrect data$/, async function() {
-    await magentoLoginPage.logIn("wrong", "wrong");
-});
+// When(/^I enter incorrect data$/, async function() {
+//     await magentoLoginPage.logIn("wrong", "wrong");
+// });
 
 Given(/^Navigate to Customers > Customer Groups$/, async function() {
     await magentoCustomerGroups.navigateTo();
