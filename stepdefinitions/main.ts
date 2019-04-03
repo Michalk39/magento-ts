@@ -2,7 +2,6 @@ import { Before, Given, Then, When } from "cucumber";
 import { $, $$, browser, element, ElementArrayFinder, ExpectedConditions } from "protractor";
 import { async } from "q";
 import { testConfig } from "../config/test-config";
-import { Google } from "../pages/app/google";
 import { MagentoAdminLogin } from "../pages/app/magentoAdminLogin";
 import { MagentoCheckout } from "../pages/app/magentoCheckout";
 import { MagentoContentPages } from "../pages/app/magentoContentPages";
@@ -22,8 +21,6 @@ import { CustomWait } from "../support/wait";
 
 const chai = require("chai").use(require("chai-as-promised"));
 const expect = chai.expect;
-const googlePage: Google = new Google();
-const imageCompare: ImageCompare = new ImageCompare();
 const magentoLoginPage: MagentoAdminLogin = new MagentoAdminLogin();
 const magentoDashboard: MagentoDashboard = new MagentoDashboard();
 const magentoCustomerGroups: MagentoCustomerGroups = new MagentoCustomerGroups();
