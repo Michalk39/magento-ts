@@ -36,19 +36,6 @@ const magentoHomePage: MagentoHomePage = new MagentoHomePage();
 const magentoCheckout: MagentoCheckout = new MagentoCheckout();
 const magentoRegisterPage: MagnetoRegisterPage = new MagnetoRegisterPage();
 
-When(/^I enter "([^"]+)" phrase$/, async function(phrase: string) {
-    await Actions.attachScreenshot(this);
-    await googlePage.search(phrase);
-});
-
-Then(/^I should see "([^"]+)" page in the (.+) row of the results$/, async function(
-    expectedPhrase,
-    resultRowIdx
-) {
-    await Actions.attachScreenshot(this);
-    expect(await googlePage.getResult(resultRowIdx)).to.contain(expectedPhrase);
-});
-
 When(/^I log in as (.+?) with (.+?) password$/, async function(username: string, password: string) {
     await magentoLoginPage.logIn(username, password);
 });
