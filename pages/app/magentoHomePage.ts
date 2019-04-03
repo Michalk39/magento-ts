@@ -2,6 +2,7 @@ import { ElementFinder, $, element, by, browser } from "protractor";
 import { BrowserActions } from "../../support/browser";
 import { Actions } from "../../support/actions";
 import { protractor } from "protractor/built/ptor";
+import { CustomWait } from "../../support/wait";
 
 export class MagentoHomePage {
     private url: string = "";
@@ -9,7 +10,6 @@ export class MagentoHomePage {
     private searchField: ElementFinder;
     private searchMagnifier: ElementFinder;
     private addToCartButton: ElementFinder;
-    private EC = protractor.ExpectedConditions;
 
     constructor() {
         this.cartIcon = $("a.action.showcart");
@@ -27,12 +27,12 @@ export class MagentoHomePage {
     }
 
     public async clickSearchMagnifier() {
-        await browser.wait(this.EC.elementToBeClickable(this.searchMagnifier), 2000);
+        await CustomWait.waitForElementToBeClickable(this.searchMagnifier);
         await Actions.click(this.searchMagnifier);
     }
 
     public async clickAddToCartButton() {
-        await browser.wait(this.EC.elementToBeClickable(this.addToCartButton), 5000);
+        await CustomWait.waitForElementToBeClickable(this.addToCartButton);
         await Actions.click(this.addToCartButton);
     }
 
