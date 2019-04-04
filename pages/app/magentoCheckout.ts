@@ -1,6 +1,7 @@
 import { BrowserActions } from "../../support/browser";
 import { ElementFinder, $ } from "protractor";
 import { Actions } from "../../support/actions";
+import { CustomWait } from "../../support/wait";
 
 export class MagentoCheckout {
     private url: string = "index.php/checkout/";
@@ -19,6 +20,10 @@ export class MagentoCheckout {
     }
 
     public async fillEmailAdressField(email: string) {
+        await CustomWait.waitForElementToBeClickable(
+            this.emailAdressField,
+            CustomWait.timeouts.long
+        );
         await Actions.sendKeys(this.emailAdressField, email);
     }
 

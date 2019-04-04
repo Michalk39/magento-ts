@@ -49,10 +49,6 @@ Then(/^I shouldn't login successfully$/, async function() {
     expect(await magentoLoginPage.isErrorMessageVisible()).equal(true);
 });
 
-// When(/^I enter incorrect data$/, async function() {
-//     await magentoLoginPage.logIn("wrong", "wrong");
-// });
-
 Given(/^Navigate to Customers > Customer Groups$/, async function() {
     await magentoCustomerGroups.navigateTo();
 });
