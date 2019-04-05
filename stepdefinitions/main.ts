@@ -27,6 +27,7 @@ const magentoCustomerGroups: MagentoCustomerGroups = new MagentoCustomerGroups()
 const magentoContentPages: MagentoContentPages = new MagentoContentPages();
 const magentoContentPagesAddNewPage: MagentoContentPagesAddNewPage = new MagentoContentPagesAddNewPage();
 const magentoUserRoles: MagentoUserRoles = new MagentoUserRoles();
+const magentoCustomerGroupsEdit: MagentoCustomerGroupsEdit = new MagentoCustomerGroupsEdit();
 const magentoUserRolesNewRole: MagentoUserRolesNewRole = new MagentoUserRolesNewRole();
 const magentoStoresConfigurationGeneralWeb: MagentoStoresConfigurationGeneralWeb = new MagentoStoresConfigurationGeneralWeb();
 const magentoHomePage: MagentoHomePage = new MagentoHomePage();
@@ -64,11 +65,11 @@ When(/^Select system Customer Group .*$/, async function() {
 });
 
 Then(/^Group Name field text is (.+)$/, async function(name: string) {
-    expect(await MagentoCustomerGroupsEdit.groupNameField.getAttribute("value")).equal(name);
+    expect(await magentoCustomerGroupsEdit.getGroupNameFieldValue()).equal(name);
 });
 
 Then(/^Group Name field is disabled$/, async function() {
-    expect(await MagentoCustomerGroupsEdit.groupNameField.getAttribute("disabled")).equal("true");
+    expect(await magentoCustomerGroupsEdit.isGroupNameFieldDisable()).equal("true");
 });
 
 Given(/^Start to create new CMS Page$/, async function() {
@@ -109,7 +110,7 @@ Then(/^New Role should be created$/, async function() {
 
 When(/^Admin save selected settings$/, async function() {
     await magentoStoresConfigurationGeneralWeb.navigateTo();
-    await magentoStoresConfigurationGeneralWeb.configureHttpsData();
+    await magentoStoresConfigurationGeneralWeb.configureHttpsData("Yes");
 });
 
 Then(/^Configuration should be saved$/, async function() {

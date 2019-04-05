@@ -52,10 +52,10 @@ export class MagentoStoresConfigurationGeneralWeb {
         return await this.saveConfigSuccesMessage.isPresent();
     }
 
-    public async configureHttpsData() {
+    public async configureHttpsData(value: string) {
         await this.expandBaseUrlsSecureSection();
         await this.uncheckUseSecureUrlsOnStorefrontCheckbox();
-        await this.selectUseSecureUrlsOnStorefrontSelectValue("Yes");
+        await this.selectUseSecureUrlsOnStorefrontSelectValue(value);
         await this.clickSaveConfigButton();
     }
 }

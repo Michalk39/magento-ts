@@ -2,7 +2,7 @@ Feature: Magento Customer Groups
 
     Feature Description
 
-    @ci @magento
+    @ci @magento @current
     Scenario: VerifyDisabledCustomerGroupFieldTest
         Given I log in as admin with correct data
         And Navigate to Customers > Customer Groups
