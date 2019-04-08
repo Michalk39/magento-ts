@@ -1,5 +1,5 @@
 import { BrowserActions } from "../../support/browser";
-import { ElementFinder, $ } from "protractor";
+import { ElementFinder, $, element, by } from "protractor";
 import { Actions } from "../../support/actions";
 import { CustomWait } from "../../support/wait";
 

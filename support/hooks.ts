@@ -4,10 +4,12 @@ import { browser } from "protractor";
 import { Actions } from "./actions";
 import { BrowserActions } from "./browser";
 import { MagentoStoresConfigurationGeneralWeb } from "../pages/app/magentoStoresConfigurationGeneralWeb";
+import { MagentoProductsCatalog } from "../pages/app/magentoProductsCatalog";
 
 var { setDefaultTimeout } = require("cucumber");
 
 const magentoStoresConfigurationGeneralWeb: MagentoStoresConfigurationGeneralWeb = new MagentoStoresConfigurationGeneralWeb();
+const magentoProductsCatalog: MagentoProductsCatalog = new MagentoProductsCatalog();
 
 setDefaultTimeout(99999 * 1000);
 

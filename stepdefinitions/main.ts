@@ -18,6 +18,7 @@ import { Actions } from "../support/actions";
 import { BrowserActions } from "../support/browser";
 import { ImageCompare } from "../support/imageCompare";
 import { CustomWait } from "../support/wait";
+import { MagentoProductsCatalog } from "../pages/app/magentoProductsCatalog";
 
 const chai = require("chai").use(require("chai-as-promised"));
 const expect = chai.expect;
@@ -33,6 +34,7 @@ const magentoStoresConfigurationGeneralWeb: MagentoStoresConfigurationGeneralWeb
 const magentoHomePage: MagentoHomePage = new MagentoHomePage();
 const magentoCheckout: MagentoCheckout = new MagentoCheckout();
 const magentoRegisterPage: MagnetoRegisterPage = new MagnetoRegisterPage();
+const magentoProductsCatalog: MagentoProductsCatalog = new MagentoProductsCatalog();
 
 When(/^I log in as admin with correct data$/, async function() {
     await magentoLoginPage.logIn();
@@ -120,6 +122,8 @@ Then(/^Configuration should be saved$/, async function() {
 });
 
 Given(/^User have non-empty shopping cart$/, async function() {
+    // await magentoProductsCatalog.createExampleProduct("Example Product");
+    await magentoProductsCatalog.createExampeProductIfNotExist("Example Product");
     await magentoHomePage.addProductToCart();
 });
 

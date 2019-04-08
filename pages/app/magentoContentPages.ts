@@ -44,6 +44,7 @@ export class MagentoContentPages {
     }
 
     public async clickAddNewPageButton() {
+        await CustomWait.waitForElementToBeClickable(this.addNewPageButton);
         await Actions.click(this.addNewPageButton);
     }
 
