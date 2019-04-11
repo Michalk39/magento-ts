@@ -1,7 +1,8 @@
-import { $, ElementFinder, ActionSequence } from "protractor";
+import { $, ElementFinder, ActionSequence, browser } from "protractor";
 import { Actions } from "../../support/actions";
 import { BrowserActions } from "../../support/browser";
 import { CustomWait } from "../../support/wait";
+import { stringify } from "querystring";
 
 export class MagentoCustomerGroupsEdit {
     private groupNameField: ElementFinder;
@@ -11,8 +12,7 @@ export class MagentoCustomerGroupsEdit {
     }
 
     public async getGroupNameFieldValue() {
-        await console.log("groupName: " + this.groupNameField.getAttribute("value"));
-        await CustomWait.waitForElementToBeClickable(this.groupNameField);
+        await CustomWait.waitForElementToBeVisible(await this.groupNameField);
         return await this.groupNameField.getAttribute("value");
     }
 
