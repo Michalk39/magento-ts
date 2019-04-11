@@ -126,9 +126,11 @@ Then(/^Configuration should be saved$/, async function() {
 });
 
 Given(/^User have non-empty shopping cart$/, async function() {
-    // await magentoProductsCatalog.createExampleProduct("Example Product");
+    await Actions.attachScreenshot(this);
     await magentoProductsCatalog.createExampeProductIfNotExist("Example Product");
+    await Actions.attachScreenshot(this);
     await magentoHomePage.addProductToCart();
+    await Actions.attachScreenshot(this);
 });
 
 When(/^He provides an incorrect email address in e-mail field$/, async function() {

@@ -11,7 +11,7 @@ export class MagentoCustomerGroupsEdit {
     }
 
     public async getGroupNameFieldValue() {
-        await console.log("groupName: " + this.groupNameField.getAttribute("value"));
+        await console.log("groupName: " + (await this.groupNameField.getAttribute("value")));
         await CustomWait.waitForElementToBeClickable(this.groupNameField);
         return await this.groupNameField.getAttribute("value");
     }
