@@ -15,8 +15,10 @@ export class MagentoCustomerGroupsEdit {
         console.log(
             "nameFromStep: " +
                 name +
+                "|" +
                 " \nnameFromField: " +
-                (await this.groupNameField.getAttribute("value"))
+                (await this.groupNameField.getAttribute("value")) +
+                "|"
         );
 
         if (name == (await this.groupNameField.getAttribute("value"))) {
