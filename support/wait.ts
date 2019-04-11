@@ -40,7 +40,7 @@ class CustomWait {
     }
 
     public static async waitForElementToBeVisible(element, timeout = this.timeouts.short) {
-        await browser.wait(this.until.invisibilityOf(element), timeout);
+        await browser.wait(this.until.visibilityOf(element), timeout);
     }
 }
 
