@@ -45,6 +45,10 @@ When(/^I log in as admin with incorrect data$/, async function() {
 });
 
 Then(/^I should login successfully$/, async function() {
+    await CustomWait.waitForElementToBeVisible(
+        await magentoDashboard.h1,
+        CustomWait.timeouts.medium
+    );
     expect(await magentoDashboard.h1.getText()).equal("Dashboard");
 });
 
