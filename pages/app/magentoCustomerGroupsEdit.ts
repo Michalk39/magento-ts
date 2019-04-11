@@ -11,7 +11,7 @@ export class MagentoCustomerGroupsEdit {
         this.groupNameField = $("#customer_group_code");
     }
 
-    public async getGroupNameFieldValue(name: string) {
+    public async getGroupNameFieldValue() {
         await CustomWait.waitForElementToBeVisible(await this.groupNameField);
         return await this.groupNameField.getAttribute("value");
     }
