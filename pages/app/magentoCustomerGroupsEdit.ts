@@ -13,22 +13,15 @@ export class MagentoCustomerGroupsEdit {
 
     public async getGroupNameFieldValue(name: string) {
         console.log(
-            "nameFromStep: " +
+            "nameFromStep:" +
                 name +
                 "|" +
-                " \nnameFromField: " +
+                " \nnameFromField:" +
                 (await this.groupNameField.getAttribute("value")) +
                 "|"
         );
-
-        if (name == (await this.groupNameField.getAttribute("value"))) {
-            console.log("PODOBNE");
-        }
-        if (name === (await this.groupNameField.getAttribute("value"))) {
-            console.log("IDENTYCZNE");
-        }
         await CustomWait.waitForElementToBeClickable(this.groupNameField);
-        return await stringify(this.groupNameField.getAttribute("value"));
+        return stringify(await this.groupNameField.getAttribute("value"));
     }
 
     public async isGroupNameFieldDisable() {
