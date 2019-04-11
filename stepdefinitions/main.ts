@@ -68,7 +68,9 @@ When(/^Select system Customer Group .*$/, async function() {
 });
 
 Then(/^Group Name field text is (.+)$/, async function(name: string) {
-    expect(await magentoCustomerGroupsEdit.getGroupNameFieldValue(name)).to.equal(name);
+    expect(await magentoCustomerGroupsEdit.getGroupNameFieldValue(name)).to.have.string(
+        JSON.stringify(name)
+    );
 });
 
 Then(/^Group Name field is disabled$/, async function() {

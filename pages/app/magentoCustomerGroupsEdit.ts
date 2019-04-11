@@ -14,14 +14,14 @@ export class MagentoCustomerGroupsEdit {
     public async getGroupNameFieldValue(name: string) {
         console.log(
             "nameFromStep:" +
-                name +
+                JSON.stringify(name) +
                 "|" +
                 " \nnameFromField:" +
-                (await this.groupNameField.getAttribute("value")) +
+                JSON.stringify(await this.groupNameField.getAttribute("value")) +
                 "|"
         );
         await CustomWait.waitForElementToBeClickable(this.groupNameField);
-        return stringify(await this.groupNameField.getAttribute("value"));
+        return JSON.stringify(await this.groupNameField.getAttribute("value"));
     }
 
     public async isGroupNameFieldDisable() {
