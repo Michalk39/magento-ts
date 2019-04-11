@@ -20,7 +20,7 @@ export class MagentoCustomerGroupsEdit {
                 JSON.stringify(await this.groupNameField.getAttribute("value")) +
                 "|"
         );
-        await CustomWait.waitForElementToBeClickable(this.groupNameField);
+        await CustomWait.waitForElementToBeClickable(await this.groupNameField);
         return JSON.stringify(await this.groupNameField.getAttribute("value"));
     }
 
