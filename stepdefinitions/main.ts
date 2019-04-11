@@ -45,10 +45,7 @@ When(/^I log in as admin with incorrect data$/, async function() {
 });
 
 Then(/^I should login successfully$/, async function() {
-    await CustomWait.waitForElementToBeVisible(
-        await magentoDashboard.h1,
-        CustomWait.timeouts.medium
-    );
+    await CustomWait.waitForElementToBeVisible(await magentoDashboard.h1, CustomWait.timeouts.long);
     expect(await magentoDashboard.h1.getText()).equal("Dashboard");
 });
 
@@ -71,6 +68,12 @@ When(/^Select system Customer Group .*$/, async function() {
 });
 
 Then(/^Group Name field text is (.+)$/, async function(name: string) {
+    console.log(
+        "nameFromStep: " +
+            name +
+            " \nnameFromField: " +
+            (await magentoCustomerGroupsEdit.getGroupNameFieldValue())
+    );
     expect(await magentoCustomerGroupsEdit.getGroupNameFieldValue()).equal(name);
 });
 
