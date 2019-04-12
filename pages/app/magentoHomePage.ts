@@ -47,10 +47,10 @@ export class MagentoHomePage {
         await this.navigateTo();
         await browser.sleep(5000); // moze tutaj problem
         await this.searchPhrase(productName);
-        await Actions.attachScreenshot(this);
+        // await Actions.attachScreenshot(this);
         await browser.sleep(5000); // moze tutaj problem
         await Actions.click(await element(by.cssContainingText(".product-item-link", productName)));
-        await Actions.attachScreenshot(this);
+        // await Actions.attachScreenshot(this);
         await browser.sleep(5000); // moze tutaj problem
         await this.clickAddToCartButton();
     }
