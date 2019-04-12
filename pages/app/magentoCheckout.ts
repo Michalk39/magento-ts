@@ -1,5 +1,5 @@
 import { BrowserActions } from "../../support/browser";
-import { ElementFinder, $, element, by } from "protractor";
+import { ElementFinder, $, element, by, browser } from "protractor";
 import { Actions } from "../../support/actions";
 import { CustomWait } from "../../support/wait";
 
@@ -19,6 +19,7 @@ export class MagentoCheckout {
 
     public async navigateTo() {
         await BrowserActions.get(this.url);
+        await browser.waitForAngular();
     }
 
     public async fillEmailAdressField(email: string) {

@@ -133,13 +133,14 @@ Given(/^User have non-empty shopping cart$/, async function() {
 When(/^He provides an incorrect email address in e-mail field$/, async function() {
     await magentoCheckout.navigateTo();
     await Actions.attachScreenshot(this);
-    await browser.sleep(10000);
+    await browser.sleep(15000);
     await Actions.attachScreenshot(this);
     await magentoCheckout.fillEmailAdressField("wrongMail");
     await Actions.attachScreenshot(this);
-    await magentoCheckout.fillEmailAdressField("John");
+    await magentoCheckout.fillFirstNameField("John");
     await Actions.attachScreenshot(this);
     await magentoCheckout.clickNextButton();
+    await Actions.attachScreenshot(this);
     await browser.sleep(1000);
 });
 
