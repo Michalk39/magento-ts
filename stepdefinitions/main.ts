@@ -132,8 +132,10 @@ Given(/^User have non-empty shopping cart$/, async function() {
 
 When(/^He provides an incorrect email address in e-mail field$/, async function() {
     await magentoCheckout.navigateTo();
+    await browser.sleep(10000);
     await magentoCheckout.fillEmailAdressField("wrongMail");
     await magentoCheckout.clickNextButton();
+    await browser.sleep(1000);
 });
 
 Then(/^He should see error message with invalid message information$/, async function() {

@@ -12,8 +12,11 @@ export class MagentoCustomerGroupsEdit {
     }
 
     public async getGroupNameFieldValue() {
-        await CustomWait.waitForElementToBeVisible(await this.groupNameField);
-        return await this.groupNameField.getAttribute("value");
+        // await CustomWait.waitForElementToBeVisible(await this.groupNameField);
+        // return await this.groupNameField.getAttribute("value");
+        await browser.sleep(10000);
+        // await CustomWait.waitForElementToBeVisible(await this.groupNameField);
+        return await JSON.stringify(await this.groupNameField.getAttribute("value"));
     }
 
     public async isGroupNameFieldDisable() {
