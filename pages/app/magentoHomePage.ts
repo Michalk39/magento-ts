@@ -45,6 +45,7 @@ export class MagentoHomePage {
         // to by można było sparametryzować
         let productName: string = "Example Product";
         await this.navigateTo();
+        await browser.sleep(5000); // moze tutaj problem
         await this.searchPhrase(productName);
         await Actions.attachScreenshot(this);
         await browser.sleep(5000); // moze tutaj problem
