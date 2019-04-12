@@ -51,7 +51,7 @@ export class MagentoProductsCatalog {
         await Actions.click(this.categorySelect);
         await Actions.click(this.defaultCategory);
         await Actions.click(this.saveButton);
-        await browser.sleep(3000);
+        await browser.sleep(10000);
     }
 
     public async checkIfProductExist(productName: string) {
