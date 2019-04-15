@@ -46,10 +46,9 @@ export class MagentoHomePage {
         await this.navigateTo();
         await browser.waitForAngular();
         await this.searchPhrase(productName);
-        await CustomWait;
-        await browser.sleep(5000);
-        await Actions.click(await element(by.cssContainingText(".product-item-link", productName)));
-        await browser.sleep(5000);
+        let productNameLink = await element(by.cssContainingText(".product-item-link", productName));
+        await CustomWait.waitForElementToBeClickable(productNameLink);
+        await Actions.click(productNameLink);
         await this.clickAddToCartButton();
     }
 }

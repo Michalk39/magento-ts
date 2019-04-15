@@ -12,15 +12,17 @@ export class MagentoContentPages {
     private lastRowUrl: ElementFinder;
     private EC = protractor.ExpectedConditions;
     private magentoContentPagesAddNewPage: MagentoContentPagesAddNewPage = new MagentoContentPagesAddNewPage();
-    private actionsSelectList: ElementFinder;
     private okButtonOnDeletePopup: ElementFinder;
+    private actionsDropdownList: ElementFinder;
 
     constructor() {
         this.addNewPageButton = $("#add");
         this.lastRowTitle = $("tbody > tr.data-row:last-child>td:nth-child(3)>div");
         this.lastRowUrl = $("tbody > tr.data-row:last-child>td:nth-child(4)>div");
-        this.actionsSelectList = $("button.action-select");
         this.okButtonOnDeletePopup = $(".action-accept span");
+        this.actionsDropdownList = $(
+            "div.admin__data-grid-header-row.row.row-gutter > div > div.action-select-wrap > button.action-select"
+        );
     }
 
     public async navigateTo() {
@@ -28,14 +30,12 @@ export class MagentoContentPages {
     }
 
     public async clickActionsSelectList() {
-        await Actions.click(this.actionsSelectList);
+        await Actions.click(this.actionsDropdownList);
     }
 
     public async selectActionFromList(action: string) {
         let listItem = await element(by.cssContainingText("ul > li > span.action-menu-item", action));
-        await Actions.click(
-            $("div.admin__data-grid-header-row.row.row-gutter > div > div.action-select-wrap > button.action-select")
-        );
+        await this.clickActionsSelectList();
         await Actions.click(listItem);
     }
 
@@ -62,23 +62,23 @@ export class MagentoContentPages {
         await this.magentoContentPagesAddNewPage.clickSaveButton();
     }
 
-    public async createMultipleTestPages(number: number) {
-        for (let i = 0; i < number; i++) {
+    public async createMultipleTestPages(numberOfPages: number) {
+        for (let i = 0; i < numberOfPages; i++) {
             await this.createNewTestPage("TestCMSPage" + String(i + 1));
         }
     }
 
-    public async clickRowCheckbox(number: number) {
+    public async clickRowCheckbox(numberOfRow: number) {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
         const tableRowOffset = 1;
-        number = number + tableRowOffset;
-        let checkBox = $("table[data-role='grid'] > tbody > tr:nth-child(" + number + ") > td:first-child");
+        numberOfRow = numberOfRow + tableRowOffset;
+        let checkBox = $(`table[data-role='grid'] > tbody > tr:nth-child(${numberOfRow}) > td:first-child`);
         await Actions.click(checkBox);
     }
 
-    public async clickRowCheckboxReversed(number: number) {
+    public async clickRowCheckboxReversed(numberOfRow: number) {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
-        let checkBox = $("table[data-role='grid'] > tbody > tr:nth-last-child(" + number + ") > td:first-child");
+        let checkBox = $(`table[data-role='grid'] > tbody > tr:nth-last-child(${numberOfRow}) > td:first-child`);
         await Actions.click(checkBox);
     }
 
@@ -89,20 +89,20 @@ export class MagentoContentPages {
         }
     }
 
-    public async getRowStatusReversed(number: number) {
+    public async getRowStatusReversed(numberOfRow: number) {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
         let statusField = $(
-            "table[data-role='grid'] > tbody > tr:nth-last-child(" + number + ") > td:nth-child(7) > div"
+            `table[data-role='grid'] > tbody > tr:nth-last-child(${numberOfRow}) > td:nth-child(7) > div`
         );
         let status = await statusField.getText();
         return await status;
     }
 
-    public async getRowUrlKey(number: number) {
+    public async getRowUrlKey(numberOfRow: number) {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
         const tableRowOffset = 1;
-        number = number + tableRowOffset;
-        let urlKeyField = $("table[data-role='grid'] > tbody > tr:nth-child(" + number + ") > td:nth-child(4) > div");
+        numberOfRow = numberOfRow + tableRowOffset;
+        let urlKeyField = $(`table[data-role='grid'] > tbody > tr:nth-child(${numberOfRow}) > td:nth-child(4) > div`);
         let urlKey = await urlKeyField.getText();
         return urlKey;
     }
@@ -120,7 +120,6 @@ export class MagentoContentPages {
     public async deleteTestPagesIfExist() {
         await this.navigateTo();
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
-        let UrlKeys = $$("table[data-role='grid'] > tbody > tr > td:nth-child(4) > div");
         let numOfRows = await $$("table[data-role='grid'] > tbody > tr").count();
 
         for (let i = 1; i < numOfRows; i++) {
