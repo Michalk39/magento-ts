@@ -10,6 +10,7 @@ import { MagentoCustomerGroups } from "../pages/app/magentoCustomerGroups";
 import { MagentoCustomerGroupsEdit } from "../pages/app/magentoCustomerGroupsEdit";
 import { MagentoDashboard } from "../pages/app/magentoDashboard";
 import { MagentoHomePage } from "../pages/app/magentoHomePage";
+import { MagentoProductsCatalog } from "../pages/app/magentoProductsCatalog";
 import { MagnetoRegisterPage } from "../pages/app/magentoRegisterPage";
 import { MagentoStoresConfigurationGeneralWeb } from "../pages/app/magentoStoresConfigurationGeneralWeb";
 import { MagentoUserRoles } from "../pages/app/magentoUserRoles";
@@ -18,7 +19,6 @@ import { Actions } from "../support/actions";
 import { BrowserActions } from "../support/browser";
 import { ImageCompare } from "../support/imageCompare";
 import { CustomWait } from "../support/wait";
-import { MagentoProductsCatalog } from "../pages/app/magentoProductsCatalog";
 
 const chai = require("chai").use(require("chai-as-promised"));
 const expect = chai.expect;
@@ -117,9 +117,7 @@ When(/^Admin save selected settings$/, async function() {
 });
 
 Then(/^Configuration should be saved$/, async function() {
-    expect(await magentoStoresConfigurationGeneralWeb.isSaveConfigSuccesMessageVisible()).equal(
-        true
-    );
+    expect(await magentoStoresConfigurationGeneralWeb.isSaveConfigSuccesMessageVisible()).equal(true);
 });
 
 Given(/^User have non-empty shopping cart$/, async function() {
@@ -153,13 +151,7 @@ Given(/^I am on register page$/, async function() {
 });
 
 When(/^I enter password (.*)$/, async function(password: string) {
-    await magentoRegisterPage.fillRegisterForm(
-        "John",
-        "Doe",
-        "John@example.com",
-        password,
-        password
-    );
+    await magentoRegisterPage.fillRegisterForm("John", "Doe", "John@example.com", password, password);
 });
 
 Then(/^The message should be (.*)$/, async function(message: string) {

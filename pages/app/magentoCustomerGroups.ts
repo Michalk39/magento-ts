@@ -12,11 +12,11 @@ export class MagentoCustomerGroups {
         );
     }
 
-    async navigateTo() {
+    public async navigateTo() {
         await BrowserActions.get(this.url);
     }
 
-    async clickEdit() {
+    public async clickEdit() {
         await Actions.click(this.selectIdZeroRow);
     }
 }

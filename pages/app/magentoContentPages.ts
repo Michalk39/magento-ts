@@ -32,13 +32,9 @@ export class MagentoContentPages {
     }
 
     public async selectActionFromList(action: string) {
-        let listItem = await element(
-            by.cssContainingText("ul > li > span.action-menu-item", action)
-        );
+        let listItem = await element(by.cssContainingText("ul > li > span.action-menu-item", action));
         await Actions.click(
-            $(
-                "div.admin__data-grid-header-row.row.row-gutter > div > div.action-select-wrap > button.action-select"
-            )
+            $("div.admin__data-grid-header-row.row.row-gutter > div > div.action-select-wrap > button.action-select")
         );
         await Actions.click(listItem);
     }
@@ -76,17 +72,13 @@ export class MagentoContentPages {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
         const tableRowOffset = 1;
         number = number + tableRowOffset;
-        let checkBox = $(
-            "table[data-role='grid'] > tbody > tr:nth-child(" + number + ") > td:first-child"
-        );
+        let checkBox = $("table[data-role='grid'] > tbody > tr:nth-child(" + number + ") > td:first-child");
         await Actions.click(checkBox);
     }
 
     public async clickRowCheckboxReversed(number: number) {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
-        let checkBox = $(
-            "table[data-role='grid'] > tbody > tr:nth-last-child(" + number + ") > td:first-child"
-        );
+        let checkBox = $("table[data-role='grid'] > tbody > tr:nth-last-child(" + number + ") > td:first-child");
         await Actions.click(checkBox);
     }
 
@@ -100,9 +92,7 @@ export class MagentoContentPages {
     public async getRowStatusReversed(number: number) {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
         let statusField = $(
-            "table[data-role='grid'] > tbody > tr:nth-last-child(" +
-                number +
-                ") > td:nth-child(7) > div"
+            "table[data-role='grid'] > tbody > tr:nth-last-child(" + number + ") > td:nth-child(7) > div"
         );
         let status = await statusField.getText();
         return await status;
@@ -112,9 +102,7 @@ export class MagentoContentPages {
         await CustomWait.waitForElementToBeClickable(this.lastRowTitle);
         const tableRowOffset = 1;
         number = number + tableRowOffset;
-        let urlKeyField = $(
-            "table[data-role='grid'] > tbody > tr:nth-child(" + number + ") > td:nth-child(4) > div"
-        );
+        let urlKeyField = $("table[data-role='grid'] > tbody > tr:nth-child(" + number + ") > td:nth-child(4) > div");
         let urlKey = await urlKeyField.getText();
         return urlKey;
     }

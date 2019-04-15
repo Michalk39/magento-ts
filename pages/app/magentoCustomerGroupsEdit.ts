@@ -6,20 +6,23 @@ import { stringify } from "querystring";
 
 export class MagentoCustomerGroupsEdit {
     private groupNameField: ElementFinder;
+    private editUrl: string = "index.php/admin/customer/group/edit/id/0/";
 
     constructor() {
         this.groupNameField = $("#customer_group_code");
     }
 
     public async getGroupNameFieldValue() {
-        // await CustomWait.waitForElementToBeVisible(await this.groupNameField);
-        // return await this.groupNameField.getAttribute("value");
-        await browser.sleep(10000);
-        // await CustomWait.waitForElementToBeVisible(await this.groupNameField);
+        await this.navigateToEditGroupZero();
+        await browser.waitForAngular();
         return await this.groupNameField.getAttribute("value");
     }
 
     public async isGroupNameFieldDisable() {
         return await this.groupNameField.getAttribute("disabled");
+    }
+
+    public async navigateToEditGroupZero() {
+        await BrowserActions.get(this.editUrl);
     }
 }
