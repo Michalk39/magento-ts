@@ -11,11 +11,11 @@ export class MagentoContentPagesAddNewPage {
         this.pageTitleField = $("input[name='title']");
     }
 
-    async fillPageTitleField(title: string) {
+    public async fillPageTitleField(title: string) {
         await Actions.sendKeys(this.pageTitleField, title);
     }
 
-    async clickSaveButton() {
+    public async clickSaveButton() {
         await Actions.click(this.saveButton);
     }
 }

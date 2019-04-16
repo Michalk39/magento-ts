@@ -1,6 +1,6 @@
-import { BrowserActions } from "../../support/browser";
-import { ElementFinder, $, element, by, browser } from "protractor";
+import { $, browser, by, element, ElementFinder } from "protractor";
 import { Actions } from "../../support/actions";
+import { BrowserActions } from "../../support/browser";
 import { CustomWait } from "../../support/wait";
 
 export class MagentoCheckout {
@@ -23,10 +23,7 @@ export class MagentoCheckout {
     }
 
     public async fillEmailAdressField(email: string) {
-        await CustomWait.waitForElementToBeClickable(
-            this.emailAdressField,
-            CustomWait.timeouts.long
-        );
+        await CustomWait.waitForElementToBeClickable(this.emailAdressField, CustomWait.timeouts.long);
         await Actions.sendKeys(this.emailAdressField, email);
     }
 
