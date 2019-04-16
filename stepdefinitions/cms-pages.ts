@@ -59,5 +59,7 @@ Then(/^Page should be visible in table$/, async function() {
 
 Then(/^Page url should be reachable$/, async function() {
     await BrowserActions.get(await magentoContentPages.getLastRowUrl());
-    expect(await $("li.item.cms_page:nth-child(2) > strong").getText()).equal(this.pageTitle);
+    expect(await magentoContentPages.getItemCmsPageText(await magentoContentPages.getLastRowUrl())).equal(
+        this.pageTitle
+    );
 });

@@ -50,6 +50,7 @@ export class MagentoContentPages {
     }
 
     public async getLastRowUrl() {
+        await this.navigateTo();
         await CustomWait.waitForElementToBeClickable(this.lastRowUrl);
         return this.lastRowUrl.getText();
     }
@@ -132,5 +133,12 @@ export class MagentoContentPages {
         await this.selectActionFromList("Delete");
         await CustomWait.waitForElementToBeClickable(this.okButtonOnDeletePopup);
         await Actions.click(this.okButtonOnDeletePopup);
+    }
+
+    public async getItemCmsPageText(url: string) {
+        await BrowserActions.get(url);
+        let cmsPageHeader = await $("li.item.cms_page:nth-child(2) > strong");
+        await CustomWait.waitForElementToBeVisible(cmsPageHeader);
+        return await cmsPageHeader.getText();
     }
 }
