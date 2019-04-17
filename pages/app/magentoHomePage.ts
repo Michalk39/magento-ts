@@ -44,7 +44,7 @@ export class MagentoHomePage {
     public async addProductToCart() {
         let productName: string = "Example Product";
         await this.navigateTo();
-        await browser.waitForAngular();
+        await CustomWait.waitForElementToBeClickable(this.searchField, CustomWait.timeouts.long);
         await this.searchPhrase(productName);
         let productNameLink = await element(by.cssContainingText(".product-item-link", productName));
         await CustomWait.waitForElementToBeClickable(productNameLink);
