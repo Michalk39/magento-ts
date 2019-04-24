@@ -10,7 +10,6 @@ pipeline {
         }
         stage('Install') {
             steps {
-                sh 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' 127.0.0.1/setup/#/landing-install)" != "200" ]]; do sleep 15; echo "Still waiting...";  done'
                 sh 'sleep 60'
                 sh 'docker exec magento_web_1 install-magento'
                 sh 'sleep 60'
