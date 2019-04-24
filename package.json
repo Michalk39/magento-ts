@@ -26,6 +26,7 @@
         "scenario": "node -r ts-node/register ./node_modules/protractor/bin/protractor config/config.ts --cucumberOpts.tags=\"@scenario\"",
         "magento": "node -r ts-node/register ./node_modules/protractor/bin/protractor config/config.ts --cucumberOpts.tags=\"@magento\"",
         "current": "node -r ts-node/register ./node_modules/protractor/bin/protractor config/config.ts --cucumberOpts.tags=\"@current\"",
+        "magento-login": "node -r ts-node/register ./node_modules/protractor/bin/protractor config/config.ts --cucumberOpts.tags=\"@magento-login\"",
         "webdriver-update": "webdriver-manager update",
         "webdriver-update-ci": "webdriver-manager update --versions.chrome 2.45",
         "webdriver-start": "webdriver-manager start",
