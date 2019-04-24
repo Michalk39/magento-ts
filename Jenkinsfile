@@ -1,14 +1,16 @@
 pipeline {
-    agent any
+    environment {
+     DOCKER_COMPOSE_PATH = '/home/testarmy/projekty/magento/docker-compose.yml'
+    }
 
-    def dockerComposePath = '/home/testarmy/projekty/magento/docker-compose.yml'
+    agent any
 
     stages {
         stage('Build') {
             steps {
-                sh "docker-compose -f ${dockerComposePath} down"
-                echo "Running images from ${dockerComposePath} file..."
-                sh "docker-compose -f ${dockerComposePath} up -d"
+                sh "docker-compose -f ${DOCKER_COMPOSE_PATH} down"
+                echo "Running images from ${DOCKER_COMPOSE_PATH} file..."
+                sh "docker-compose -f ${DOCKER_COMPOSE_PATH} up -d"
             }
         }
         stage('Install') {
@@ -28,7 +30,7 @@ pipeline {
         }
         stage('Clean') {
             steps {
-                sh "docker-compose -f ${dockerComposePath} down"
+                sh "docker-compose -f ${DOCKER_COMPOSE_PATH} down"
             }
         }
     }
