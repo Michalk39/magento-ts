@@ -5,9 +5,14 @@ pipeline {
 
     agent any
 
+    triggers { 
+        pollSCM('* * * * *') 
+    }
+
     stages {
         stage('Build') {
             steps {
+                slackSend baseUrl: 'https://hooks.slack.com/services/', channel: 'lodz_jenkins', color: 'warning', message: "Job: ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} ended.", teamDomain: 'testarmy', tokenCredentialId: 'slack-demo'
                 sh "docker-compose -f ${DOCKER_COMPOSE_PATH} down"
                 echo "Running images from ${DOCKER_COMPOSE_PATH} file..."
                 sh "docker-compose -f ${DOCKER_COMPOSE_PATH} up -d"
@@ -36,7 +41,15 @@ pipeline {
     }
     post { 
         always { 
-            slackSend baseUrl: 'https://hooks.slack.com/services/', channel: 'lodz_jenkins', color: 'good', message: "Job: ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} ended.", teamDomain: 'testarmy', tokenCredentialId: 'slack-demo'
+            slackSend baseUrl: 'https://hooks.slack.com/services/', channel: 'lodz_jenkins', color: 'warning', message: "Job: ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} ended.", teamDomain: 'testarmy', tokenCredentialId: 'slack-demo'
+            script {
+                if ( currentBuild.currentResult == "SUCCESS" ) {
+                slackSend baseUrl: 'https://hooks.slack.com/services/', channel: 'lodz_jenkins', color: 'good', message: "Job: ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was successful!", teamDomain: 'testarmy', tokenCredentialId: 'slack-demo'
+                }
+                else { 
+                    slackSend baseUrl: 'https://hooks.slack.com/services/', channel: 'lodz_jenkins', color: 'danger', message: "Job: ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was failed", teamDomain: 'testarmy', tokenCredentialId: 'slack-demo'
+                }
+            }
         }
     }
 }
