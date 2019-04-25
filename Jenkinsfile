@@ -33,5 +33,10 @@ pipeline {
                 sh "docker-compose -f ${DOCKER_COMPOSE_PATH} down"
             }
         }
+        stage('Slack Notification') {
+            steps {
+                slackSend baseUrl: 'https://hooks.slack.com/services/', channel: 'lodz_jenkins', color: 'good', message: 'Testing message to slack from jenkins.', teamDomain: 'testarmy', tokenCredentialId: 'slack-demo'
+            }
+        }
     }
 }
