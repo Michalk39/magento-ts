@@ -32,10 +32,15 @@ pipeline {
             steps {
                 sh "docker-compose -f ${DOCKER_COMPOSE_PATH} down"
             }
-        }
-        stage('Slack Notification') {
-            steps {
-                slackSend baseUrl: 'https://hooks.slack.com/services/', channel: 'lodz_jenkins', color: 'good', message: 'Test message from jenkins to slack.', teamDomain: 'testarmy', tokenCredentialId: 'slack-demo'
+        }    
+    }
+    post { 
+        always { 
+            if ( buildResult == "SUCCESS" ) {
+                slackSend baseUrl: 'https://hooks.slack.com/services/', channel: 'lodz_jenkins', color: 'good', message: "Job: ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was successful!", teamDomain: 'testarmy', tokenCredentialId: 'slack-demo'
+            }
+            else { 
+                slackSend baseUrl: 'https://hooks.slack.com/services/', channel: 'lodz_jenkins', color: 'danger', message: "Job: ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was failed", teamDomain: 'testarmy', tokenCredentialId: 'slack-demo'
             }
         }
     }
