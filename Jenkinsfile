@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Install') {
             steps {
-                sh 'sleep 60'
+                sh 'sleep 15'
                 echo "Installing magento..."
                 sh 'docker exec magento_web_1 install-magento'
                 sh 'sleep 60'
