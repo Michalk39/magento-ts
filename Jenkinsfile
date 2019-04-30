@@ -6,8 +6,7 @@ pipeline {
     agent any
 
     triggers { 
-        pollSCM('H H * * *') 
-        cron('H 5 * * *')
+        pollSCM('H 5 * * *') 
     }
 
     stages {
